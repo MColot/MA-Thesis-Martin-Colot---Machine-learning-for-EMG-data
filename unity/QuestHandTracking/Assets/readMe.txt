@@ -1,0 +1,1 @@
+recordings are saved in C:\..\AppData\LocalLow\DefaultCompany\QuestHandTracking\PersistedHandDataRecordings

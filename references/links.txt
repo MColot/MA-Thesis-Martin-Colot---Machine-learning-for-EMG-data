@@ -1,0 +1,1 @@
+synchronise EMG and hand tracking: https://www.researchgate.net/post/How_can_I_synchronize_EMG_and_acceleration_data

@@ -15,6 +15,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Oculus.VR.Editor", "Oculus.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Oculus.Platform.Editor", "Oculus.Platform.Editor.csproj", "{43666990-82A8-4961-52CF-DFDFC3609FBA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unity.XR.Management.Samples", "Unity.XR.Management.Samples.csproj", "{12A68805-FE2F-1878-6447-78FBB68E363C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unity.XR.Management.Samples.Editor", "Unity.XR.Management.Samples.Editor.csproj", "{5024F3FB-82A1-7212-0870-6B71324BD0F8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +53,14 @@ Global
 		{43666990-82A8-4961-52CF-DFDFC3609FBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{43666990-82A8-4961-52CF-DFDFC3609FBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{43666990-82A8-4961-52CF-DFDFC3609FBA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12A68805-FE2F-1878-6447-78FBB68E363C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12A68805-FE2F-1878-6447-78FBB68E363C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12A68805-FE2F-1878-6447-78FBB68E363C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12A68805-FE2F-1878-6447-78FBB68E363C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5024F3FB-82A1-7212-0870-6B71324BD0F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5024F3FB-82A1-7212-0870-6B71324BD0F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5024F3FB-82A1-7212-0870-6B71324BD0F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5024F3FB-82A1-7212-0870-6B71324BD0F8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

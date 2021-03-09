@@ -706,31 +706,58 @@
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.14f1/Editor/Data/MonoBleedingEdge/lib/mono/unityscript/Boo.Lang.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline.Editor">
-      <HintPath>C:/Users/marti/Documents/QuestHandTracking/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+      <HintPath>C:/Users/marti/Desktop/memoire/MA-Thesis-Martin-Colot---Machine-learning-for-EMG-data/unity/QuestHandTracking/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VSCode.Editor">
-      <HintPath>C:/Users/marti/Documents/QuestHandTracking/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+      <HintPath>C:/Users/marti/Desktop/memoire/MA-Thesis-Martin-Colot---Machine-learning-for-EMG-data/unity/QuestHandTracking/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>C:/Users/marti/Documents/QuestHandTracking/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>C:/Users/marti/Desktop/memoire/MA-Thesis-Martin-Colot---Machine-learning-for-EMG-data/unity/QuestHandTracking/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>C:/Users/marti/Documents/QuestHandTracking/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+      <HintPath>C:/Users/marti/Desktop/memoire/MA-Thesis-Martin-Colot---Machine-learning-for-EMG-data/unity/QuestHandTracking/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline">
-      <HintPath>C:/Users/marti/Documents/QuestHandTracking/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+      <HintPath>C:/Users/marti/Desktop/memoire/MA-Thesis-Martin-Colot---Machine-learning-for-EMG-data/unity/QuestHandTracking/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>C:/Users/marti/Documents/QuestHandTracking/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>C:/Users/marti/Desktop/memoire/MA-Thesis-Martin-Colot---Machine-learning-for-EMG-data/unity/QuestHandTracking/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Rider.Editor">
-      <HintPath>C:/Users/marti/Documents/QuestHandTracking/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+      <HintPath>C:/Users/marti/Desktop/memoire/MA-Thesis-Martin-Colot---Machine-learning-for-EMG-data/unity/QuestHandTracking/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>C:/Users/marti/Documents/QuestHandTracking/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>C:/Users/marti/Desktop/memoire/MA-Thesis-Martin-Colot---Machine-learning-for-EMG-data/unity/QuestHandTracking/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
-      <HintPath>C:/Users/marti/Documents/QuestHandTracking/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+      <HintPath>C:/Users/marti/Desktop/memoire/MA-Thesis-Martin-Colot---Machine-learning-for-EMG-data/unity/QuestHandTracking/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.XR.Management">
+      <HintPath>C:/Users/marti/Desktop/memoire/MA-Thesis-Martin-Colot---Machine-learning-for-EMG-data/unity/QuestHandTracking/Library/ScriptAssemblies/Unity.XR.Management.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Subsystem.Registration">
+      <HintPath>C:/Users/marti/Desktop/memoire/MA-Thesis-Martin-Colot---Machine-learning-for-EMG-data/unity/QuestHandTracking/Library/ScriptAssemblies/Unity.Subsystem.Registration.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.XR.LegacyInputHelpers">
+      <HintPath>C:/Users/marti/Desktop/memoire/MA-Thesis-Martin-Colot---Machine-learning-for-EMG-data/unity/QuestHandTracking/Library/ScriptAssemblies/UnityEngine.XR.LegacyInputHelpers.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.XR.Management.Editor">
+      <HintPath>C:/Users/marti/Desktop/memoire/MA-Thesis-Martin-Colot---Machine-learning-for-EMG-data/unity/QuestHandTracking/Library/ScriptAssemblies/Unity.XR.Management.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.SpatialTracking">
+      <HintPath>C:/Users/marti/Desktop/memoire/MA-Thesis-Martin-Colot---Machine-learning-for-EMG-data/unity/QuestHandTracking/Library/ScriptAssemblies/UnityEditor.SpatialTracking.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.SpatialTracking">
+      <HintPath>C:/Users/marti/Desktop/memoire/MA-Thesis-Martin-Colot---Machine-learning-for-EMG-data/unity/QuestHandTracking/Library/ScriptAssemblies/UnityEngine.SpatialTracking.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.XR.LegacyInputHelpers">
+      <HintPath>C:/Users/marti/Desktop/memoire/MA-Thesis-Martin-Colot---Machine-learning-for-EMG-data/unity/QuestHandTracking/Library/ScriptAssemblies/UnityEditor.XR.LegacyInputHelpers.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.XR.Oculus">
+      <HintPath>C:/Users/marti/Desktop/memoire/MA-Thesis-Martin-Colot---Machine-learning-for-EMG-data/unity/QuestHandTracking/Library/ScriptAssemblies/Unity.XR.Oculus.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.XR.Oculus.Editor">
+      <HintPath>C:/Users/marti/Desktop/memoire/MA-Thesis-Martin-Colot---Machine-learning-for-EMG-data/unity/QuestHandTracking/Library/ScriptAssemblies/Unity.XR.Oculus.Editor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -753,6 +780,14 @@
     <ProjectReference Include="Oculus.VR.csproj">
       <Project>{7661E277-97D4-795C-578C-1724CC4BEDAD}</Project>
       <Name>Oculus.VR</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.XR.Management.Samples.csproj">
+      <Project>{12A68805-FE2F-1878-6447-78FBB68E363C}</Project>
+      <Name>Unity.XR.Management.Samples</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.XR.Management.Samples.Editor.csproj">
+      <Project>{5024F3FB-82A1-7212-0870-6B71324BD0F8}</Project>
+      <Name>Unity.XR.Management.Samples.Editor</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

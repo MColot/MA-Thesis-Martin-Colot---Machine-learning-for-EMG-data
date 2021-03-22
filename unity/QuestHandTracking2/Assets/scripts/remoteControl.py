@@ -40,6 +40,8 @@ def startRecording():
 	command = "adb push startRecording.txt sdcard/Android/data/com.DefaultCompany.QuestHandTracking2/files/data"
 	runBashCommandWithDisplay(command)
 
+	#here : send trigger to delsys
+
 	os.remove("startRecording.txt")
 
 
@@ -56,6 +58,8 @@ def stopRecording():
 	print(command)
 
 	runBashCommandWithDisplay(command)
+
+	#here : send trigger to delsys
 
 
 def exitProg():

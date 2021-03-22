@@ -7,7 +7,6 @@ public class dataSaving : MonoBehaviour
 
     public OVRSkeleton leftHand;
     public OVRSkeleton rightHand;
-    public Transform[] reconstructedHand;
     public GameObject savingDisplay;
     public Material savingMaterialOn;
     public Material savingMaterialOff;
@@ -15,12 +14,7 @@ public class dataSaving : MonoBehaviour
     string path;
     bool isSaving = false;
     string currentRecordingName = "";
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    
 
     // Update is called once per frame
     void FixedUpdate()
@@ -82,10 +76,7 @@ public class dataSaving : MonoBehaviour
         {
             text += pose.BoneRotations[i].ToString() + ";";
 
-            if (i < reconstructedHand.Length)
-            {
-                reconstructedHand[i].localRotation = OVRExtensions.FromQuatf(pose.BoneRotations[i]);
-            }
+            
         }
         text += pose.IsDataValid + ";";
         text += pose.IsDataHighConfidence + ";";

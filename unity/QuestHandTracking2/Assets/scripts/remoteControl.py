@@ -18,11 +18,13 @@ def runBashCommandWithDisplay(bashCommand):
 
 
 def isValidFileName(s):
-	return 1
+	match = re.search("([a-z]*[A-Z]*[0-9]*)*", s)
+	return match.group(0) == s
 
 
 
 def startRecording():
+	global currentRecording
 	recordName =  input("	> Enter record name: ")
 	if not isValidFileName(recordName):
 		print("	> Invalid Name")
@@ -32,8 +34,10 @@ def startRecording():
 	f.write(recordName)
 	f.close()
 
-	command = "adb push startRecording.txt sdcard/Android/data/com.DefaultCompany.QuestHandTracking2/files/data"
+	currentRecording = recordName
+
 	print("	> sending start recording signal to oculus Quest")
+	command = "adb push startRecording.txt sdcard/Android/data/com.DefaultCompany.QuestHandTracking2/files/data"
 	runBashCommandWithDisplay(command)
 
 	os.remove("startRecording.txt")
@@ -41,9 +45,18 @@ def startRecording():
 
 
 def stopRecording():
-	command = "adb shell touch sdcard/Android/data/com.DefaultCompany.QuestHandTracking2/files/data/stopRecording.txt"
+	global currentRecording
 	print("	> sending start recording signal to oculus Quest")
+	command = "adb shell touch sdcard/Android/data/com.DefaultCompany.QuestHandTracking2/files/data/stopRecording.txt"
 	runBashCommandWithDisplay(command)
+
+
+	print("	> starting download of the recording : {}".format(currentRecording))
+	command = "adb pull sdcard/Android/data/com.DefaultCompany.QuestHandTracking2/files/data/{}.txt {}".format(currentRecording, os.getcwd().replace("\\", "/") + "/")
+	print(command)
+
+	runBashCommandWithDisplay(command)
+
 
 def exitProg():
 	global exit
@@ -53,6 +66,7 @@ def exitProg():
 
 exit = False
 commands = {"start": startRecording, "stop": stopRecording, "exit": exitProg}
+currentRecording = ""
 
 if __name__ == "__main__":
 	while not exit:

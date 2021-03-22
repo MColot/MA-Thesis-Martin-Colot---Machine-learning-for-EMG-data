@@ -14,12 +14,12 @@ public class dataSaving : MonoBehaviour
 
     string path;
     bool isSaving = false;
+    string currentRecordingName = "";
 
     // Start is called before the first frame update
     void Start()
     {
-        path = Application.persistentDataPath + "/Data/test.txt";
-        System.IO.File.WriteAllText(path, "");
+        
     }
 
     // Update is called once per frame
@@ -36,14 +36,40 @@ public class dataSaving : MonoBehaviour
 
     private void testSaving()
     {
-        string File = Application.persistentDataPath + "/Data/toggleSave.txt";
-        if (System.IO.File.Exists(File)){
-            System.IO.File.Delete(File);
-            isSaving = !isSaving;
-            if (isSaving) savingDisplay.GetComponent<Renderer>().material = savingMaterialOn;
-            else savingDisplay.GetComponent<Renderer>().material = savingMaterialOff;
+        string fileName;
+        //test Start Recording
+        fileName = Application.persistentDataPath + "/Data/startRecording.txt";
+        if (System.IO.File.Exists(fileName)){
+            if (isSaving) stopRecording();
+            currentRecordingName = System.IO.File.ReadAllText(fileName);
+            System.IO.File.Delete(fileName);
+            startRecording();
+        }
+
+        //test Stop Recording
+        fileName = Application.persistentDataPath + "/Data/stopRecording.txt";
+        if (System.IO.File.Exists(fileName))
+        {
+            System.IO.File.Delete(fileName);
+            stopRecording();
         }
     }
+    
+    private void startRecording()
+    {
+        isSaving = true;
+        savingDisplay.GetComponent<Renderer>().material = savingMaterialOn; //display that the recording has started
+
+        path = Application.persistentDataPath + "/Data/" + currentRecordingName + ".txt";
+        System.IO.File.WriteAllText(path, "");
+    }
+
+    private void stopRecording()
+    {
+        isSaving = false;
+        savingDisplay.GetComponent<Renderer>().material = savingMaterialOff; //display that the recording has stopped
+    }
+
 
 
     private string computeFrameDesc(OVRSkeleton hand)

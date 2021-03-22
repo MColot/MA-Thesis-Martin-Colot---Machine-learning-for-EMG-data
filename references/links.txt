@@ -1,1 +1,5 @@
 synchronise EMG and hand tracking: https://www.researchgate.net/post/How_can_I_synchronize_EMG_and_acceleration_data
+https://www.researchgate.net/post/How_to_synchronise_two_signal_with_different_sampling_frequency
+https://www.researchgate.net/figure/Characteristics-of-EMG-signal_fig1_232905752
+https://developer.oculus.com/documentation/unity/unity-enable-device/
+https://developer.android.com/studio/command-line/adb

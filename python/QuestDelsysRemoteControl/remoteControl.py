@@ -47,7 +47,11 @@ def emgDataCollection():
 
 
 def saveEmgData(data):
-	print(data)
+	print("	> Saving EMG data")
+	with open(currentRecording + "EMG.txt", "w") as file:
+		for line in data:
+			file.write(data)
+			file.write("\n")
 
 
 def recordQuest():

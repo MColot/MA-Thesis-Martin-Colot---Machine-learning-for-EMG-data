@@ -11,12 +11,13 @@ public class handDataDisplaying : MonoBehaviour
     public string filePath;
 
     private StreamReader reader;
-    private int startRotationIndex = 3;
-    private int endRotationIndex = 22;
+    public int startRotationIndex = 3;
+    private int endRotationIndex;
 
     private void Start()
     {
         reader = new StreamReader(filePath);
+        endRotationIndex = startRotationIndex + 19;
     }
 
 
@@ -84,6 +85,7 @@ public class handDataDisplaying : MonoBehaviour
                 current += c;
             }
         }
+
         return new Quaternion(values[0], -values[1], -values[2], values[3]);
     }
 }

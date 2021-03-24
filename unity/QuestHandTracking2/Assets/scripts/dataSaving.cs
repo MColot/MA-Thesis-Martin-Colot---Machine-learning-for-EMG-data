@@ -21,11 +21,11 @@ public class dataSaving : MonoBehaviour
     {
         testSaving();
 
-        string frameLeftHand = computeFrameDesc(leftHand);
-        string frameRightHand = computeFrameDesc(rightHand);
+        string frameLeftHand = computeFrameDesc(leftHand, leftHand.GetComponent<OVRHand>());
+        string frameRightHand = computeFrameDesc(rightHand, leftHand.GetComponent<OVRHand>());
 
         if (isSaving)
-            System.IO.File.AppendAllText(path, Time.time + ";" + frameLeftHand + ";" + frameRightHand + "\n");
+            System.IO.File.AppendAllText(path, Time.time + ";" + frameLeftHand + frameRightHand + "\n");
     }
 
     private void testSaving()
@@ -66,21 +66,26 @@ public class dataSaving : MonoBehaviour
 
 
 
-    private string computeFrameDesc(OVRSkeleton hand)
+    private string computeFrameDesc(OVRSkeleton handSkeleton, OVRHand hand)
     {
-        OVRSkeleton.SkeletonPoseData pose = hand.getBoneData();
+        OVRSkeleton.SkeletonPoseData pose = handSkeleton.getBoneData();
+
         string text = "";
+        text += pose.IsDataValid + ";";
         text += pose.RootPose.ToString() + ";";
-        text += pose.RootScale + ";";
-        for(int i=0; i<pose.BoneRotations.Length; ++i)
+        //text += pose.RootScale + ";";
+        for(int i=0; i< 19; ++i)
         {
             text += pose.BoneRotations[i].ToString() + ";";
-
-            
         }
-        text += pose.IsDataValid + ";";
-        text += pose.IsDataHighConfidence + ";";
-        text += pose.SkeletonChangedCount + ";";
+        for (int i = 1; i < 5; ++i)
+        {
+            text += hand.GetFingerIsPinching((OVRHand.HandFinger)i) + ";";
+        }
+        for (int i = 0; i < 5; ++i)
+        {
+            text += hand.GetFingerConfidence((OVRHand.HandFinger)i) + ";";
+        }
 
         return text;
     }

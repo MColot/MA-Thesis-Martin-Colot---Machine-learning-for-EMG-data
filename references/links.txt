@@ -3,3 +3,8 @@ https://www.researchgate.net/post/How_to_synchronise_two_signal_with_different_s
 https://www.researchgate.net/figure/Characteristics-of-EMG-signal_fig1_232905752
 https://developer.oculus.com/documentation/unity/unity-enable-device/
 https://developer.android.com/studio/command-line/adb
+
+EMG data collection:
+	https://www.nature.com/articles/s41597-019-0285-1
+	https://pubmed.ncbi.nlm.nih.gov/23713662/
+	https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4636463/

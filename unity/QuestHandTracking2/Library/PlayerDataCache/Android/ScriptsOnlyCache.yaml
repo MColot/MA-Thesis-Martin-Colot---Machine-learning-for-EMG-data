@@ -3,11 +3,13 @@ ScriptsOnlyBuild:
     Assembly-CSharp.dll:
     - ONSPSettings
     - dataSaving
+    - handDataDisplaying
     Oculus.VR.Editor.dll:
     - Assets.Oculus.VR.Editor.OVRPlatformToolSettings
     - OVRConfig
     Oculus.VR.dll:
     - OVRCameraRig
+    - OVRCustomSkeleton
     - OVRHand
     - OVRHeadsetEmulator
     - OVRManager
@@ -54,6 +56,8 @@ ScriptsOnlyBuild:
     - Class: 43
       Script: {instanceID: 0}
     - Class: 48
+      Script: {instanceID: 0}
+    - Class: 65
       Script: {instanceID: 0}
     - Class: 81
       Script: {instanceID: 0}
@@ -368,7 +372,7 @@ ScriptsOnlyBuild:
     className: GridLayoutGroup
   - hash:
       serializedVersion: 2
-      Hash: d074e31519ea1490fde1bb52f4304edf
+      Hash: b84c99c816faaa4599fb547b3ddaa691
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: handDataDisplaying
@@ -398,7 +402,7 @@ ScriptsOnlyBuild:
     className: SignalAsset
   - hash:
       serializedVersion: 2
-      Hash: 8dfac3d8f4890976679c22dce0b7fac2
+      Hash: d20c2445e2fe1b8be8dc816a63c76939
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: dataSaving

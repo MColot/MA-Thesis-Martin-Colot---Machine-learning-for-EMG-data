@@ -86,6 +86,6 @@ public class handDataDisplaying : MonoBehaviour
             }
         }
 
-        return new Quaternion(values[0], -values[1], -values[2], values[3]);
+        return new Quaternion(values[0], values[1], values[2], values[3]);
     }
 }

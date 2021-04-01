@@ -8,21 +8,39 @@ public class dataSaving : MonoBehaviour
     public OVRSkeleton leftHand;
     public OVRSkeleton rightHand;
     public GameObject savingDisplay;
+    public Transform pinchingDisplay;
     public Material savingMaterialOn;
     public Material savingMaterialOff;
+    public Material pinchingMaterialOff;
+    public Material pinchingMaterialOn;
 
     string path;
     bool isSaving = false;
     string currentRecordingName = "";
     
 
+
+    void pingTest()
+    {
+        string fileName;
+        fileName = Application.persistentDataPath + "/Data/pingTest.txt";
+        if (System.IO.File.Exists(fileName))
+        {
+            System.IO.File.WriteAllText(fileName, "test");
+        }
+    }
+
+
     // Update is called once per frame
     void FixedUpdate()
     {
+        pingTest();
+
+
         testSaving();
 
-        string frameLeftHand = computeFrameDesc(leftHand, leftHand.GetComponent<OVRHand>());
-        string frameRightHand = computeFrameDesc(rightHand, leftHand.GetComponent<OVRHand>());
+        string frameLeftHand = computeFrameDesc(leftHand, leftHand.GetComponent<OVRHand>(), 0);
+        string frameRightHand = computeFrameDesc(rightHand, rightHand.GetComponent<OVRHand>(), 4);
 
         if (isSaving)
             System.IO.File.AppendAllText(path, Time.time + ";" + frameLeftHand + frameRightHand + "\n");
@@ -66,7 +84,7 @@ public class dataSaving : MonoBehaviour
 
 
 
-    private string computeFrameDesc(OVRSkeleton handSkeleton, OVRHand hand)
+    private string computeFrameDesc(OVRSkeleton handSkeleton, OVRHand hand, int fingerIndex)
     {
         OVRSkeleton.SkeletonPoseData pose = handSkeleton.getBoneData();
 
@@ -76,11 +94,21 @@ public class dataSaving : MonoBehaviour
         //text += pose.RootScale + ";";
         for(int i=0; i< 19; ++i)
         {
-            text += pose.BoneRotations[i].ToString() + ";";
+            Quaternion boneRotation =  new Quaternion();
+            text += pose.BoneRotations[i].x + "," + -pose.BoneRotations[i].y + "," + -pose.BoneRotations[i].z +","+ pose.BoneRotations[i].w + ";";
         }
         for (int i = 1; i < 5; ++i)
         {
-            text += hand.GetFingerIsPinching((OVRHand.HandFinger)i) + ";";
+            bool pinching = hand.GetFingerIsPinching((OVRHand.HandFinger)i);
+            text += pinching + ";";
+            if (pinching)
+            {
+                pinchingDisplay.GetChild(fingerIndex + i -1).GetComponent<Renderer>().material = pinchingMaterialOn;
+            }
+            else
+            {
+                pinchingDisplay.GetChild(fingerIndex + i -1).GetComponent<Renderer>().material = pinchingMaterialOff;
+            }
         }
         for (int i = 0; i < 5; ++i)
         {

@@ -5,7 +5,6 @@ import threading
 import argparse
 import pytrigno
 
-
 def runBashCommand(bashCommand):
 	process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
 	output, error = process.communicate()
@@ -33,7 +32,7 @@ def emgDataCollection():
 		delsysRecorder = pytrigno.TrignoEMG(channel_range=(0, EMGchannelCount - 1), samples_per_read=270, host=host)
 		data = []
 		delsysRecorder.start()
-		isRecording = True
+		delsysIsRecording = True
 		waitingForThread = False
 		print("	> Sucess")
 		while delsysIsRecording:
@@ -43,6 +42,7 @@ def emgDataCollection():
 	except Exception as e:
 		print("	> Failure : {}".format(e))
 		waitingForThread = False
+		delsysIsRecording = False
 
 
 
@@ -61,7 +61,6 @@ def recordQuest():
 	f.write(currentRecording)
 	f.close()
 
-	print("	> Sending start recording signal to oculus Quest")
 	command = "adb push startRecording.txt sdcard/Android/data/com.DefaultCompany.QuestHandTracking2/files/data"
 	runBashCommandWithDisplay(command)
 	os.remove("startRecording.txt")
@@ -107,12 +106,11 @@ def stopRecording():
 
 		print("	> Starting download of the recording : {}".format(currentRecording))
 		command = "adb pull sdcard/Android/data/com.DefaultCompany.QuestHandTracking2/files/data/{}.txt {}".format(currentRecording, os.getcwd().replace("\\", "/") + "/")
-		print(command)
 
 		runBashCommandWithDisplay(command)
 
 	questIsRecording = False
-	questIsRecording = False
+	delsysIsRecording = False
 
 
 def exitProg():

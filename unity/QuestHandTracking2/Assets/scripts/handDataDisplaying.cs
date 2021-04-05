@@ -41,7 +41,7 @@ public class handDataDisplaying : MonoBehaviour
                 {
                     if(indexInLine >= startRotationIndex && indexInLine < endRotationIndex)
                     {
-                        boneRotations.Add(stringToQuaternion(current));
+                        boneRotations.Add(Quaternion.Euler(stringToVector3(current)));
                     }
                     ++indexInLine;
                     current = "";
@@ -61,10 +61,10 @@ public class handDataDisplaying : MonoBehaviour
     }
 
 
-    private Quaternion stringToQuaternion(string s)
+    private Vector3 stringToVector3(string s)
     {
         s += ",";
-        float[] values = new float[4];
+        float[] values = new float[3];
         int index = 0;
         string current = "";
         for (int i = 0; i < s.Length; ++i)
@@ -86,6 +86,6 @@ public class handDataDisplaying : MonoBehaviour
             }
         }
 
-        return new Quaternion(values[0], values[1], values[2], values[3]);
+        return new Vector3(values[0], values[1], values[2]);
     }
 }

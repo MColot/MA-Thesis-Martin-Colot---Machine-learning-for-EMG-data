@@ -96,8 +96,8 @@ public class dataSaving : MonoBehaviour
         //text += pose.RootScale + ";";
         for(int i=0; i< 19; ++i)
         {
-            Quaternion boneRotation =  new Quaternion();
-            text += pose.BoneRotations[i].x + "," + -pose.BoneRotations[i].y + "," + -pose.BoneRotations[i].z +","+ pose.BoneRotations[i].w + ";";
+            Vector3 boneRotation = pose.BoneRotations[i].FromFlippedXQuatf().eulerAngles;
+            text += boneRotation.x + "," + boneRotation.y + "," + boneRotation.z + ";";
         }
         for (int i = 1; i < 5; ++i)
         {

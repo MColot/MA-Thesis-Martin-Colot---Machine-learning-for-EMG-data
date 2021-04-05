@@ -6,6 +6,7 @@ https://developer.android.com/studio/command-line/adb
 
 EMG data collection:
 	https://www.nature.com/articles/s41597-019-0285-1
+	https://www.nature.com/articles/sdata201453
 	https://pubmed.ncbi.nlm.nih.gov/23713662/
 	https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4636463/
 
@@ -26,3 +27,5 @@ EMG data collection protocol:
 	https://www.researchgate.net/publication/221922041_Location_of_Electrodes_in_Surface_EMG
 	https://dl.acm.org/doi/abs/10.1145/1378773.1378778
 	https://ieeexplore.ieee.org/abstract/document/5735233
+	https://www.collectionscanada.gc.ca/obj/thesescanada/vol2/OKQ/TC-OKQ-1574.pdf
+	https://jneuroengrehab.biomedcentral.com/articles/10.1186/s12984-018-0437-0

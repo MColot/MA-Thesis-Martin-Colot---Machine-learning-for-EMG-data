@@ -293,7 +293,7 @@ PrefabInstance:
     - target: {fileID: 2506907534856670537, guid: ef020450e23b2a74a82f0b66a5ee26a3,
         type: 3}
       propertyPath: filePath
-      value: C:/Users/marti/Desktop/memoire/MA-Thesis-Martin-Colot---Machine-learning-for-EMG-data/python/QuestDelsysRemoteControl/recordClara.txt
+      value: C:/Users/marti/Desktop/memoire/MA-Thesis-Martin-Colot---Machine-learning-for-EMG-data/python/QuestDelsysRemoteControl/recordMartin.txt
       objectReference: {fileID: 0}
     - target: {fileID: 2506907534856670537, guid: ef020450e23b2a74a82f0b66a5ee26a3,
         type: 3}
@@ -524,7 +524,7 @@ PrefabInstance:
     - target: {fileID: 2506907534856670537, guid: ef020450e23b2a74a82f0b66a5ee26a3,
         type: 3}
       propertyPath: filePath
-      value: C:/Users/marti/Desktop/memoire/MA-Thesis-Martin-Colot---Machine-learning-for-EMG-data/python/QuestDelsysRemoteControl/recordClara.txt
+      value: C:/Users/marti/Desktop/memoire/MA-Thesis-Martin-Colot---Machine-learning-for-EMG-data/python/QuestDelsysRemoteControl/recordMartin.txt
       objectReference: {fileID: 0}
     - target: {fileID: 2506907534856670537, guid: ef020450e23b2a74a82f0b66a5ee26a3,
         type: 3}

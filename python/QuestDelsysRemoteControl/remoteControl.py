@@ -125,6 +125,7 @@ def stopRecording():
 
 	questIsRecording = False
 	delsysIsRecording = False
+	print(f" > trigger were sent at {triggerTimestamps}")
 
 
 def trigger():

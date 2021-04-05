@@ -71,29 +71,29 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11398}
     - Class: 114
-      Script: {instanceID: 11550}
+      Script: {instanceID: 11552}
     - Class: 114
-      Script: {instanceID: 11796}
+      Script: {instanceID: 11798}
     - Class: 114
-      Script: {instanceID: 12122}
+      Script: {instanceID: 11856}
     - Class: 114
-      Script: {instanceID: 12138}
+      Script: {instanceID: 12126}
     - Class: 114
-      Script: {instanceID: 12406}
+      Script: {instanceID: 12142}
     - Class: 114
-      Script: {instanceID: 12856}
+      Script: {instanceID: 12410}
     - Class: 114
-      Script: {instanceID: 12952}
+      Script: {instanceID: 12860}
     - Class: 114
-      Script: {instanceID: 13510}
+      Script: {instanceID: 12956}
     - Class: 114
-      Script: {instanceID: 13726}
+      Script: {instanceID: 13514}
     - Class: 114
-      Script: {instanceID: 13804}
+      Script: {instanceID: 13730}
     - Class: 114
-      Script: {instanceID: 14238}
+      Script: {instanceID: 13808}
     - Class: 114
-      Script: {instanceID: 19922}
+      Script: {instanceID: 14242}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -165,6 +165,12 @@ ScriptsOnlyBuild:
     assemblyName: Oculus.VR.dll
     namespaceName: 
     className: OVRCameraRig
+  - hash:
+      serializedVersion: 2
+      Hash: 83076b3ec94935dfb80d4d7e19f24f36
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: sineWaveExample
   - hash:
       serializedVersion: 2
       Hash: fb6fbda121d17c03aa85a449ce8e4f22
@@ -441,6 +447,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: OvrAvatarSDKManager
+  - hash:
+      serializedVersion: 2
+      Hash: 2b636496d73836b1eaf1a9125bd5c834
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: timeDisplay
   - hash:
       serializedVersion: 2
       Hash: e7dac3c9100823d6e750582bb7d6b5f8
@@ -1755,13 +1767,7 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
-  - hash:
-      serializedVersion: 2
-      Hash: d4baee1b0ae916225e500616c0b719e3
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: timeDisplay
   platform: 13
   scenePathNames:
   - Assets/Scenes/dataRecording.unity
-  playerPath: C:/Users/marti/Desktop/memoire/MA-Thesis-Martin-Colot---Machine-learning-for-EMG-data/unity/QuestHandTracking2/apk/test.apk
+  playerPath: C:/Users/marti/Desktop/memoire/MA-Thesis-Martin-Colot---Machine-learning-for-EMG-data/unity/QuestHandTracking2/apk/QuestHandTracking.apk

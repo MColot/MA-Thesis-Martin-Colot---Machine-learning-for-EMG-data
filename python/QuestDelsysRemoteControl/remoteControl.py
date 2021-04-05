@@ -4,6 +4,7 @@ import os
 import threading
 import argparse
 import pytrigno
+from datetime import datetime
 
 def runBashCommand(bashCommand):
 	process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
@@ -26,22 +27,23 @@ def isValidFileName(s):
 
 
 def emgDataCollection():
-	global host, delsysIsRecording, EMGchannelCount, waitingForThread
+	global host, delsysIsRecording, EMGchannelCount, waitingForDelsysThread
 	print("	> Sending recording signal to delsys")
 	try:
 		delsysRecorder = pytrigno.TrignoEMG(channel_range=(0, EMGchannelCount - 1), samples_per_read=270, host=host)
 		data = []
 		delsysRecorder.start()
 		delsysIsRecording = True
-		waitingForThread = False
 		print("	> Sucess")
 		while delsysIsRecording:
 			data.append(delsysRecorder.read())
+			waitingForDelsysThread = False #TODO : make sure that delsysRecorder.read() is blocking
+			print("	> Receiving data from delsys")
 		delsysRecorder.stop()
 		saveEmgData(data)
 	except Exception as e:
 		print("	> Failure : {}".format(e))
-		waitingForThread = False
+		waitingForDelsysThread = False
 		delsysIsRecording = False
 
 
@@ -50,12 +52,13 @@ def saveEmgData(data):
 	print("	> Saving EMG data")
 	with open(currentRecording + "EMG.txt", "w") as file:
 		for line in data:
-			file.write(data)
+			file.write(line)
 			file.write("\n")
 
 
 def recordQuest():
-	global currentRecording, waitingForThread, questIsRecording
+	global currentRecording, waitingForDelsysThread, questIsRecording, triggerTimestamps
+	triggerTimestamps = []
 	
 	f = open("startRecording.txt", "w")
 	f.write(currentRecording)
@@ -68,14 +71,12 @@ def recordQuest():
 	questIsRecording = True
 
 def recordDelsys():
-	global waitingForThread, delsysIsRecording
-	waitingForThread = True
+	global waitingForDelsysThread, delsysIsRecording
+	waitingForDelsysThread = True
 	t = threading.Thread(target=emgDataCollection)
 	t.start()
 
-	#send start trigger to EMG and EEG here
-
-	while waitingForThread:
+	while waitingForDelsysThread:
 		pass
 
 def askRecordName():
@@ -100,7 +101,7 @@ def startRecordingDelsys():
 
 
 def stopRecording():
-	global currentRecording, delsysIsRecording, questIsRecording
+	global currentRecording, delsysIsRecording, questIsRecording, triggerTimestamps
 	if questIsRecording:
 		print("	> Sending start recording signal to oculus Quest")
 		command = "adb shell touch sdcard/Android/data/com.DefaultCompany.QuestHandTracking2/files/data/stopRecording.txt"
@@ -111,12 +112,22 @@ def stopRecording():
 
 		runBashCommandWithDisplay(command)
 	if delsysIsRecording:
-		#send stop trigger to EMG and EEG here
-		pass
+		sendNewTrigger = True
+		while sendNewTrigger and len(triggerTimestamps) < 2:
+			sendNewTrigger = input(f"	> You are recording EMG and have only sent {len(triggerTimestamps)} trigger. Do you want to send a new one? (y or n)") == "y"
+			if sendNewTrigger:
+				trigger()
 
 	questIsRecording = False
 	delsysIsRecording = False
 
+
+def trigger():
+	global delsysIsRecording, triggerTimestamps
+	if delsysIsRecording:
+		pass
+		#TODO: send trigger signal to delsys
+	triggerTimestamps.append(datetime.now())
 
 def exitProg():
 	global exit
@@ -126,12 +137,13 @@ def exitProg():
 
 EMGchannelCount = 16
 exit = False
-commands = {"start": startRecording, "stop": stopRecording, "startQuest":startRecordingQuest, "startDelsys":startRecordingDelsys, "exit": exitProg}
+commands = {"start": startRecording, "stop": stopRecording, "startQuest":startRecordingQuest, "startDelsys":startRecordingDelsys, "trigger": trigger, "exit": exitProg}
 currentRecording = ""
-waitingForThread = False
+waitingForDelsysThread = False
 questIsRecording = False
 delsysIsRecording = False
 host = None
+triggerTimestamps = []
 
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawTextHelpFormatter)
@@ -151,6 +163,7 @@ if __name__ == "__main__":
 		print("stop: stop recording")
 		print("startQuest: start recording of quest only")
 		print("startDelsys: start recording of delsys only")
+		print("trigger: send synchronization trigger")
 		print("exit: exit the program")
 		print("------------------------------")
 

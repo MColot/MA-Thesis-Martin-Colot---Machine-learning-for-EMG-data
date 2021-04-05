@@ -11,6 +11,6 @@ public class timeDisplay : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        textDisplay.text = System.DateTime.UtcNow.AddHours(2).ToString() + "." + System.DateTime.UtcNow.Millisecond.ToString();
+        textDisplay.text = System.DateTime.UtcNow.ToLocalTime().ToString() + "." + System.DateTime.UtcNow.ToLocalTime().Millisecond.ToString();
     }
 }

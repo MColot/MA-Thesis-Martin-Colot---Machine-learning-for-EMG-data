@@ -131,7 +131,7 @@ def trigger():
 	global delsysIsRecording, triggerTimestamps
 	if delsysIsRecording:
 		pass
-		#TODO: send trigger signal to delsys
+		#TODO: send trigger signal to delsys : http://data.delsys.com/DelsysServicePortal/api/web-api/DelsysAPI.Utils.TrignoTrigger.html
 	triggerTimestamps.append(datetime.now())
 	print(f"	> trigger has been sent at timestamp {triggerTimestamps[-1]}")
 

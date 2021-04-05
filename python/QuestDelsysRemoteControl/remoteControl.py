@@ -59,6 +59,8 @@ def saveEmgData(data):
 def recordQuest():
 	global currentRecording, waitingForDelsysThread, questIsRecording, triggerTimestamps
 	triggerTimestamps = []
+
+	print("	> Sending recording signal to Quest")
 	
 	f = open("startRecording.txt", "w")
 	f.write(currentRecording)
@@ -102,6 +104,9 @@ def startRecordingDelsys():
 
 def stopRecording():
 	global currentRecording, delsysIsRecording, questIsRecording, triggerTimestamps
+	if not (questIsRecording or delsysIsRecording):
+		print("	> nothing is recording")
+		return
 	if questIsRecording:
 		print("	> Sending start recording signal to oculus Quest")
 		command = "adb shell touch sdcard/Android/data/com.DefaultCompany.QuestHandTracking2/files/data/stopRecording.txt"
@@ -114,7 +119,7 @@ def stopRecording():
 	if delsysIsRecording:
 		sendNewTrigger = True
 		while sendNewTrigger and len(triggerTimestamps) < 2:
-			sendNewTrigger = input(f"	> You are recording EMG and have only sent {len(triggerTimestamps)} trigger. Do you want to send a new one? (y or n)") == "y"
+			sendNewTrigger = input(f"	> You are recording EMG and have only sent {len(triggerTimestamps)} trigger. \n		Do you want to send a new one? (y or n) : ") == "y"
 			if sendNewTrigger:
 				trigger()
 
@@ -128,6 +133,7 @@ def trigger():
 		pass
 		#TODO: send trigger signal to delsys
 	triggerTimestamps.append(datetime.now())
+	print(f"	> trigger has been sent at timestamp {triggerTimestamps[-1]}")
 
 def exitProg():
 	global exit

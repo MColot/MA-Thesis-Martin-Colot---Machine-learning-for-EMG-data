@@ -73,6 +73,8 @@ def recordDelsys():
 	t = threading.Thread(target=emgDataCollection)
 	t.start()
 
+	#send start trigger to EMG and EEG here
+
 	while waitingForThread:
 		pass
 
@@ -108,6 +110,9 @@ def stopRecording():
 		command = "adb pull sdcard/Android/data/com.DefaultCompany.QuestHandTracking2/files/data/{}.txt {}".format(currentRecording, os.getcwd().replace("\\", "/") + "/")
 
 		runBashCommandWithDisplay(command)
+	if delsysIsRecording:
+		#send stop trigger to EMG and EEG here
+		pass
 
 	questIsRecording = False
 	delsysIsRecording = False
@@ -119,7 +124,7 @@ def exitProg():
 	print("	> Exiting the program")
 
 
-EMGchannelCount = 12
+EMGchannelCount = 16
 exit = False
 commands = {"start": startRecording, "stop": stopRecording, "startQuest":startRecordingQuest, "startDelsys":startRecordingDelsys, "exit": exitProg}
 currentRecording = ""

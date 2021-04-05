@@ -217,6 +217,8 @@
     <Compile Include="Assets\Oculus\Spatializer\scripts\helpers\ONSPReflectionZone.cs" />
     <Compile Include="Assets\scripts\dataSaving.cs" />
     <Compile Include="Assets\scripts\handDataDisplaying.cs" />
+    <Compile Include="Assets\scripts\sineWaveExample.cs" />
+    <Compile Include="Assets\scripts\timeDisplay.cs" />
     <None Include="Assets\Oculus\SampleFramework\Usage\HandsTrainExample\Shaders\XingLightShader.shader" />
     <None Include="Assets\Oculus\Avatar\Resources\Materials\AvatarMaterialStateShader.cginc" />
     <None Include="Assets\Oculus\SampleFramework\Usage\HandsTrainExample\Shaders\ButtonGlow.shader" />

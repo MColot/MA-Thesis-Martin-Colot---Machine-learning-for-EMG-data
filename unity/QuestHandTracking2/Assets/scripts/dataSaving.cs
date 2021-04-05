@@ -34,7 +34,7 @@ public class dataSaving : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        pingTest();
+        //pingTest();
 
 
         testSaving();
@@ -42,8 +42,10 @@ public class dataSaving : MonoBehaviour
         string frameLeftHand = computeFrameDesc(leftHand, leftHand.GetComponent<OVRHand>(), 0);
         string frameRightHand = computeFrameDesc(rightHand, rightHand.GetComponent<OVRHand>(), 4);
 
-        if (isSaving)
+        if (isSaving) { 
+            string time = System.DateTime.UtcNow.AddHours(2).ToString() + "." + System.DateTime.UtcNow.Millisecond.ToString();
             System.IO.File.AppendAllText(path, Time.time + ";" + frameLeftHand + frameRightHand + "\n");
+        }
     }
 
     private void testSaving()
@@ -89,7 +91,7 @@ public class dataSaving : MonoBehaviour
         OVRSkeleton.SkeletonPoseData pose = handSkeleton.getBoneData();
 
         string text = "";
-        text += pose.IsDataValid + ";";
+        text += (pose.IsDataValid ? 1 : 0) + ";";
         text += pose.RootPose.ToString() + ";";
         //text += pose.RootScale + ";";
         for(int i=0; i< 19; ++i)
@@ -100,7 +102,7 @@ public class dataSaving : MonoBehaviour
         for (int i = 1; i < 5; ++i)
         {
             bool pinching = hand.GetFingerIsPinching((OVRHand.HandFinger)i);
-            text += pinching + ";";
+            text += (pinching ? 1 : 0) + ";";
             if (pinching)
             {
                 pinchingDisplay.GetChild(fingerIndex + i -1).GetComponent<Renderer>().material = pinchingMaterialOn;
@@ -112,7 +114,7 @@ public class dataSaving : MonoBehaviour
         }
         for (int i = 0; i < 5; ++i)
         {
-            text += hand.GetFingerConfidence((OVRHand.HandFinger)i) + ";";
+            text += (hand.GetFingerConfidence((OVRHand.HandFinger)i).ToString() == "High" ? 1 : 0) + "; ";
         }
 
         return text;

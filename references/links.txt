@@ -8,3 +8,21 @@ EMG data collection:
 	https://www.nature.com/articles/s41597-019-0285-1
 	https://pubmed.ncbi.nlm.nih.gov/23713662/
 	https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4636463/
+
+https://www.mdpi.com/2073-431X/9/4/92
+
+EMG data collection protocol:
+	https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0186132
+	http://hudsonvalleywingwars.com/emg-collection-protocol-for-prosthetics
+	https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6720505/
+	https://www.jove.com/t/50602/simultaneous-scalp-electroencephalography-eeg-electromyography-emg
+	https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1455479/
+	https://erpinfo.org/blog/2019/12/12/eeg-recording-protocol
+	https://www.mdpi.com/1424-8220/20/10/2972/pdf
+	https://www.researchgate.net/publication/331042065_Gesture_Prediction_Using_Wearable_Sensing_Systems_with_Neural_Networks_for_Temporal_Data_Analysis
+	https://hal.archives-ouvertes.fr/tel-01691715/document
+	https://pubmed.ncbi.nlm.nih.gov/23713662/#:~:text=Surface%20EMG%20was%20recorded%20by,electrodes%20located%20on%20the%20forearm.
+	https://www.researchgate.net/publication/236955942_Placement_of_forearm_surface_EMG_electrodes_in_the_assessment_of_hand_loading_in_manual_tasks
+	https://www.researchgate.net/publication/221922041_Location_of_Electrodes_in_Surface_EMG
+	https://dl.acm.org/doi/abs/10.1145/1378773.1378778
+	https://ieeexplore.ieee.org/abstract/document/5735233

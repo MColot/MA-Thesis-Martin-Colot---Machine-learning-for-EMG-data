@@ -3,13 +3,12 @@ ScriptsOnlyBuild:
     Assembly-CSharp.dll:
     - ONSPSettings
     - dataSaving
-    - handDataDisplaying
+    - timeDisplay
     Oculus.VR.Editor.dll:
     - Assets.Oculus.VR.Editor.OVRPlatformToolSettings
     - OVRConfig
     Oculus.VR.dll:
     - OVRCameraRig
-    - OVRCustomSkeleton
     - OVRHand
     - OVRHeadsetEmulator
     - OVRManager
@@ -61,6 +60,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 81
       Script: {instanceID: 0}
+    - Class: 102
+      Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
     - Class: 108
@@ -91,7 +92,11 @@ ScriptsOnlyBuild:
       Script: {instanceID: 13804}
     - Class: 114
       Script: {instanceID: 14238}
+    - Class: 114
+      Script: {instanceID: 19922}
     - Class: 115
+      Script: {instanceID: 0}
+    - Class: 128
       Script: {instanceID: 0}
     - Class: 137
       Script: {instanceID: 0}
@@ -1750,6 +1755,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
+  - hash:
+      serializedVersion: 2
+      Hash: d4baee1b0ae916225e500616c0b719e3
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: timeDisplay
   platform: 13
   scenePathNames:
   - Assets/Scenes/dataRecording.unity

@@ -17,7 +17,9 @@ public class dataSaving : MonoBehaviour
     string path;
     bool isSaving = false;
     string currentRecordingName = "";
-    
+    bool sendFeedBack = false;
+
+
 
 
     void pingTest()
@@ -42,9 +44,15 @@ public class dataSaving : MonoBehaviour
         string frameLeftHand = computeFrameDesc(leftHand, leftHand.GetComponent<OVRHand>(), 0);
         string frameRightHand = computeFrameDesc(rightHand, rightHand.GetComponent<OVRHand>(), 4);
 
-        if (isSaving) { 
-            string time = System.DateTime.UtcNow.ToLocalTime().ToString() + "." + System.DateTime.UtcNow.ToLocalTime().Millisecond.ToString();
+        if (isSaving) {
+            string time = ((System.DateTime.UtcNow.Ticks - 621355968000000000) / 10000000.0d).ToString();
             System.IO.File.AppendAllText(path, time + ";" + frameLeftHand + frameRightHand + "\n");
+        }
+
+        if (sendFeedBack)
+        {
+            System.IO.File.AppendAllText(Application.persistentDataPath + "/Data/startRecording.txt", " test");
+            sendFeedBack = false;
         }
     }
 
@@ -53,16 +61,16 @@ public class dataSaving : MonoBehaviour
         string fileName;
         //test Start Recording
         fileName = Application.persistentDataPath + "/Data/startRecording.txt";
-        if (System.IO.File.Exists(fileName)){
-            if (isSaving) stopRecording();
+        if (System.IO.File.Exists(fileName) && !isSaving)
+        {
             currentRecordingName = System.IO.File.ReadAllText(fileName);
-            System.IO.File.Delete(fileName);
             startRecording();
+            sendFeedBack = true;
         }
 
         //test Stop Recording
         fileName = Application.persistentDataPath + "/Data/stopRecording.txt";
-        if (System.IO.File.Exists(fileName))
+        if (System.IO.File.Exists(fileName) && isSaving)
         {
             System.IO.File.Delete(fileName);
             stopRecording();

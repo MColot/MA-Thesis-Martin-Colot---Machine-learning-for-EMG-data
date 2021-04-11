@@ -1,10 +1,15 @@
 import subprocess
 import re
 import os
-import threading
-import argparse
-import pytrigno
 from datetime import datetime
+import serial
+import time
+
+EVENT_DURATION = 0.005  # In sec
+EVENT_TO_SEND = 255
+DEFAULT_EVENT_VALUE = 0
+
+EMG_CHANNEL_COUNT = 16
 
 
 def runBashCommand(bashCommand):
@@ -35,78 +40,65 @@ def isValidFileName(s):
     :param s: given file name
     :return: boolean which tells if the given file name is valid to store the collected data
     """
+    if os.path.exists(s):
+        print(" > you already have a recording which has that name")
+        return False
     match = re.search("([a-z]*[A-Z]*[0-9]*)*", s)
     return match.group(0) == s
 
 
-def emgDataCollection():
-    """
-	Thread that reads the EMG data from the delsys sensor
-	When it is asked to stop, saves all the read data in a file
-    """
-    global host, delsysIsRecording, EMGchannelCount, waitingForDelsysThread
-    print("	> Sending recording signal to delsys")
-    try:
-        delsysRecorder = pytrigno.TrignoEMG(channel_range=(0, EMGchannelCount - 1), samples_per_read=270, host=host)
-        data = []
-        delsysRecorder.start()
-        delsysIsRecording = True
-        print("	> Sucess")
-        while delsysIsRecording:
-            data.append(delsysRecorder.read())
-            waitingForDelsysThread = False  # TODO : make sure that delsysRecorder.read() is blocking
-            print("	> Receiving data from delsys")
-        delsysRecorder.stop()
-        saveEmgData(data)
-    except Exception as e:
-        print("	> Failure : {}".format(e))
-        waitingForDelsysThread = False
-        delsysIsRecording = False
-
-
-def saveEmgData(data):
-    """
-	saves the given EMG data in a file
-    :param data: EMG data to save
-    """
-    print("	> Saving EMG data")
-    with open(currentRecording + "EMG.txt", "w") as file:
-        for line in data:
-            file.write(line)
-            file.write("\n")
 
 
 def recordQuest():
     """
-	sends a signal to the oculus quest to tell him to start a new recording with a given name
+	sends a signal to the Oculus quest to tell him to start a new recording with a given name
     """
-    global currentRecording, waitingForDelsysThread, questIsRecording, triggerTimestamps
-    triggerTimestamps = []
-
+    global currentRecording, questIsRecording, triggerTimestamp
+    triggerTimestamp = None
     print("	> Sending recording signal to Quest")
+
+    # sends a file the the Oculus quest to tell him to start its recording
 
     f = open("startRecording.txt", "w")
     f.write(currentRecording)
     f.close()
 
-    command = "adb push startRecording.txt sdcard/Android/data/com.DefaultCompany.QuestHandTracking2/files/data"
-    runBashCommandWithDisplay(command)
+    pushCommand = "adb push startRecording.txt sdcard/Android/data/com.DefaultCompany.QuestHandTracking2/files/data"
+    runBashCommandWithDisplay(pushCommand)
+
+    # waits for the Oculus Quest to give feedback that its has started its recording
+
+    commandPull = "adb pull sdcard/Android/data/com.DefaultCompany.QuestHandTracking2/files/data/startRecording.txt {}".format(os.getcwd().replace("\\", "/") + "/")
+    done = False
+    while not done:
+        print("	> waiting...")
+        runBashCommandWithDisplay(commandPull)
+        with open("startRecording.txt", 'r') as f:
+            done = f.readline() == currentRecording + " test"
+
+    # deletes the trigger file from computer and Oculus quest
+
+    commandDelete = "adb shell rm sdcard/Android/data/com.DefaultCompany.QuestHandTracking2/files/data/startRecording.txt"
+    runBashCommandWithDisplay(commandDelete)
     os.remove("startRecording.txt")
 
     questIsRecording = True
 
 
-def recordDelsys():
+def recordEMG():
     """
-	starts the thread which reads the EMG data from the Delsys sensor
+	sends a trigger to start the EMG recording
     """
-    global waitingForDelsysThread, delsysIsRecording
-    waitingForDelsysThread = True
-    t = threading.Thread(target=emgDataCollection)
-    t.start()
-
-    while waitingForDelsysThread:
-        pass
+    global EmgIsRecording, serialPort, EVENT_TO_SEND, triggerTimestamp
+    print(" > Sending recording signal to EMG sensor")
+    try:
+        triggerTimestamp = float(datetime.now().timestamp())
+        serialPort = openSerialConnexion()
+        writeOnSerialSignal(serialPort, EVENT_TO_SEND)
+        EmgIsRecording = True
+        print(f" > EMG recording started at {triggerTimestamp}")
+    except Exception as e:
+        print(f" > Failed to start recording of EMG : {e}")
 
 
 def askRecordName():
@@ -126,7 +118,7 @@ def startRecording():
     """
     askRecordName()
     recordQuest()
-    recordDelsys()
+    recordEMG()
 
 
 def startRecordingQuest():
@@ -137,12 +129,12 @@ def startRecordingQuest():
     recordQuest()
 
 
-def startRecordingDelsys():
+def startRecordingEMG():
     """
 	command to start recording the EMG only
     """
     askRecordName()
-    recordDelsys()
+    recordEMG()
 
 
 def stopRecording():
@@ -151,8 +143,8 @@ def stopRecording():
 	for hand tracking, sends a message to the oculus Quest to tell him to stop the recording. Then, pulls the recorded file.
 	for EMG-EEG, tells the recording thread to stop itself
     """
-    global currentRecording, delsysIsRecording, questIsRecording, triggerTimestamps
-    if not (questIsRecording or delsysIsRecording):
+    global currentRecording, EmgIsRecording, questIsRecording, triggerTimestamp, serialPort
+    if not (questIsRecording or EmgIsRecording):
         print("	> nothing is recording")
         return
     if questIsRecording:
@@ -163,74 +155,128 @@ def stopRecording():
         print("	> Starting download of the recording : {}".format(currentRecording))
         command = "adb pull sdcard/Android/data/com.DefaultCompany.QuestHandTracking2/files/data/{}.txt {}".format(
             currentRecording, os.getcwd().replace("\\", "/") + "/")
-
         runBashCommandWithDisplay(command)
-    if delsysIsRecording:
-        sendNewTrigger = True
-        while sendNewTrigger and len(triggerTimestamps) < 2:
-            sendNewTrigger = input(
-                f"	> You are recording EMG and have only sent {len(triggerTimestamps)} trigger. \n		Do you want to send a new one? (y or n) : ") == "y"
-            if sendNewTrigger:
-                trigger()
+    if EmgIsRecording:
+        print(" > Sending stop signal to EMG sensor")
+        writeOnSerialSignal(serialPort, EVENT_TO_SEND)
+        closeSerialConnexion(serialPort)
+        print(" > You can save the EMG data")
+
+    if EmgIsRecording and questIsRecording:
+        pathToEMG = input(" > path to EMG data for synchronisation : ")
+        pathToQuest = os.getcwd().replace("\\", "/") + "/" + currentRecording + ".txt"
+        synchronizeData(currentRecording, pathToEMG, pathToQuest, triggerTimestamp)
 
     questIsRecording = False
-    delsysIsRecording = False
-    print(f" > trigger were sent at {triggerTimestamps}")
-
-
-def trigger():
-    """
-	command to add a trigger in the current recording
-	for hand tracking, stores the current utc timestamp in a list
-	for EMG-EEG, sends a trigger signal to the sensor
-    """
-    global delsysIsRecording, triggerTimestamps
-    if delsysIsRecording:
-        pass
-    # TODO: send trigger signal to delsys : http://data.delsys.com/DelsysServicePortal/api/web-api/DelsysAPI.Utils.TrignoTrigger.html
-    triggerTimestamps.append(datetime.now())
-    print(f"	> trigger has been sent at timestamp {triggerTimestamps[-1]}")
+    EmgIsRecording = False
 
 
 def exitProgram():
     """
 	command to close to program
     """
-    global exit
-    exit = True
+    global exitProg
+    exitProg = True
     print("	> Exiting the program")
 
 
-EMGchannelCount = 16
-exit = False
+def openSerialConnexion(comChanel='COM7'):
+    """
+    Opening serial port for USB2TTL8 device
+    :param comChanel: COM channel to use for the serial connexion
+    :return: the opened serial port
+    """
+    try:
+        serialPort = serial.Serial(comChanel, baudrate=128000, timeout=0.01)
+        serialPort.write(str.encode(f"WRITE {DEFAULT_EVENT_VALUE}\n"))
+        print("Serial port opened - USB2TTL8 device LED should be green")
+        return serialPort
+    except Exception as e:
+        print(f"No serial port opened - USB2TTL8 device not found! : {e}")
+
+
+def closeSerialConnexion(serialPort):
+    """
+    closes the given serial port
+    :param serialPort: serial port to close
+    """
+    try:
+        serialPort.close()
+    except Exception as e:
+        print(f"No serial port opened! : {e}")
+
+
+def writeOnSerialSignal(serialPort, value, duration=EVENT_DURATION):
+    """
+    writes on the given serial port, which must already be opened
+    :param serialPort: serial port to write on
+    :param value: value to write
+    :param duration: duration during which the data must be written
+    """
+    global  DEFAULT_EVENT_VALUE, EVENT_DURATION
+    if serialPort is not None:
+        serialPort.write(str.encode(f"WRITE {value}\n"))
+        sendingTime = time.time()
+        while time.time() - sendingTime < duration:
+            pass
+        serialPort.write(str.encode(f"WRITE {DEFAULT_EVENT_VALUE}\n"))
+    else:
+        print(f"No serial port opened!")
+
+
+def cropQuestData(pathToData, timestamp):
+    """
+    crops the start of a file containing hand tracking data from the Oculus quest
+    so that it starts at a given timestamp
+    :param pathToData: path to file to crop
+    :param timestamp: timestamp that marks the start of the recording to keep
+    """
+    resString = ""
+    with open(pathToData, "r") as file:
+        for line in file:
+            data = line.split(";")
+            dataTimestamp = float(data[0])
+            if dataTimestamp >= timestamp:
+                data[0] = str(round(1000*(dataTimestamp - timestamp), 1))
+                resString += ";".join(data)
+    with open(pathToData, "w") as file:
+        file.write(resString)
+
+
+def synchronizeData(name, pathToEMG, pathToQuest, startingTimestamp):
+    """
+    create a folder containing the recorded data from the Oculus quest and the EMG sensor
+    crops the data from the Oculus Quest so that it is synchronized with the EMG data
+    :param name: name of the folder to create
+    :param pathToEMG: path to the file containing the EMG data
+    :param pathToQuest: path to the file containing the Quest data
+    :param startingTimestamp: UTC timestamp at which the recording of the EMG was started
+    """
+    cropQuestData(pathToQuest, startingTimestamp)
+    os.mkdir(name)
+    os.rename(pathToEMG, os.getcwd().replace("\\", "/") + "/" + name + "/" + currentRecording + "EMG.c3d")
+    os.rename(pathToQuest, os.getcwd().replace("\\", "/") + "/" + name + "/" + currentRecording + "Quest.csv")
+    print(f" > Data was saved and synchronized in folder {name}")
+
+
+exitProg = False
 commands = {"start": startRecording, "stop": stopRecording, "startQuest": startRecordingQuest,
-            "startDelsys": startRecordingDelsys, "trigger": trigger, "exit": exitProgram}
+            "startEMG": startRecordingEMG, "exit": exitProgram}
 currentRecording = ""
-waitingForDelsysThread = False
 questIsRecording = False
-delsysIsRecording = False
-host = None
-triggerTimestamps = []
+EmgIsRecording = False
+triggerTimestamp = None
+serialPort = None
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawTextHelpFormatter)
-    parser.add_argument('-a', '--addr',
-                        dest='host',
-                        default='localhost',
-                        help="IP address of the machine running TCU. Default is localhost.")
-    args = parser.parse_args()
-    host = args.host
-
-    print("\nConnecting to {} as machine running TCU\n".format(host))
-    while not exit:
+    while not exitProg:
         print("------------------------------")
         print("Interface for the EMG-Hand Tracking synchronization system")
         print("Commands:")
         print("start: start recording")
         print("stop: stop recording")
         print("startQuest: start recording of quest only")
-        print("startDelsys: start recording of delsys only")
-        print("trigger: send synchronization trigger")
+        print("startEMG: start recording of EMG only")
         print("exit: exit the program")
         print("------------------------------")
 

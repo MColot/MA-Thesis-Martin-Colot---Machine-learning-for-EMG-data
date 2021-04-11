@@ -68,7 +68,8 @@ def recordQuest():
 
     # waits for the Oculus Quest to give feedback that its has started its recording
 
-    commandPull = "adb pull sdcard/Android/data/com.DefaultCompany.QuestHandTracking2/files/data/startRecording.txt {}".format(os.getcwd().replace("\\", "/") + "/")
+    commandPull = "adb pull sdcard/Android/data/com.DefaultCompany.QuestHandTracking2/files/data/startRecording.txt {}".format(
+        os.getcwd().replace("\\", "/") + "/")
     done = False
     while not done:
         print("	> waiting...")
@@ -213,7 +214,7 @@ def writeOnSerialSignal(serialPort, value, duration=EVENT_DURATION):
     :param value: value to write
     :param duration: duration during which the data must be written
     """
-    global  DEFAULT_EVENT_VALUE, EVENT_DURATION
+    global DEFAULT_EVENT_VALUE, EVENT_DURATION
     if serialPort is not None:
         serialPort.write(str.encode(f"WRITE {value}\n"))
         sendingTime = time.time()
@@ -238,7 +239,7 @@ def cropQuestData(pathToData, timestamp):
             data = line.split(";")
             dataTimestamp = float(data[0]) - COMETA_TRIGGER_DELAY
             if dataTimestamp >= timestamp:
-                data[0] = str(round(1000*(dataTimestamp - timestamp), 1))
+                data[0] = str(round(1000 * (dataTimestamp - timestamp), 1))
                 resString += ";".join(data)
     with open(pathToData, "w") as file:
         file.write(resString)
@@ -260,9 +261,26 @@ def synchronizeData(name, pathToEMG, pathToQuest, startingTimestamp):
     print(f" > Data was saved and synchronized in folder {name}")
 
 
+def reset():
+    """
+    send signal on quest to stop recording (even if not started) and resets everyting
+    """
+    global currentRecording, questIsRecording, EmgIsRecording, triggerTimestamp, serialPort
+
+    print("	> Sending start recording signal to oculus Quest")
+    command = "adb shell touch sdcard/Android/data/com.DefaultCompany.QuestHandTracking2/files/data/stopRecording.txt"
+    runBashCommandWithDisplay(command)
+
+    currentRecording = ""
+    questIsRecording = False
+    EmgIsRecording = False
+    triggerTimestamp = None
+    serialPort = None
+
+
 exitProg = False
 commands = {"start": startRecording, "stop": stopRecording, "startQuest": startRecordingQuest,
-            "startEMG": startRecordingEMG, "exit": exitProgram}
+            "startEMG": startRecordingEMG, "reset": reset, "exit": exitProgram}
 currentRecording = ""
 questIsRecording = False
 EmgIsRecording = False
@@ -278,6 +296,7 @@ if __name__ == "__main__":
         print("stop: stop recording")
         print("startQuest: start recording of quest only")
         print("startEMG: start recording of EMG only")
+        print("reset: stops recording on the quest and resets everything")
         print("exit: exit the program")
         print("------------------------------")
 

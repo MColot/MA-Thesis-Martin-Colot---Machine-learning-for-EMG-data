@@ -59,6 +59,7 @@ public class dataSaving : MonoBehaviour
             System.IO.File.Delete(fileName);
             stopRecording();
         }
+        
     }
     
     //starts the recording, creates a file to put the record in and displays that the recording has started

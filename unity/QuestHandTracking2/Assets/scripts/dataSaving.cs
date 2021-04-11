@@ -43,8 +43,8 @@ public class dataSaving : MonoBehaviour
         string frameRightHand = computeFrameDesc(rightHand, rightHand.GetComponent<OVRHand>(), 4);
 
         if (isSaving) { 
-            string time = System.DateTime.UtcNow.AddHours(2).ToString() + "." + System.DateTime.UtcNow.Millisecond.ToString();
-            System.IO.File.AppendAllText(path, Time.time + ";" + frameLeftHand + frameRightHand + "\n");
+            string time = System.DateTime.UtcNow.ToLocalTime().ToString() + "." + System.DateTime.UtcNow.ToLocalTime().Millisecond.ToString();
+            System.IO.File.AppendAllText(path, time + ";" + frameLeftHand + frameRightHand + "\n");
         }
     }
 

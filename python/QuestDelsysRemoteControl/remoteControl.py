@@ -9,6 +9,8 @@ EVENT_DURATION = 0.005  # In sec
 EVENT_TO_SEND = 255
 DEFAULT_EVENT_VALUE = 0
 
+COMETA_TRIGGER_DELAY = 0.014
+
 EMG_CHANNEL_COUNT = 16
 
 
@@ -231,11 +233,12 @@ def cropQuestData(pathToData, timestamp):
     :param pathToData: path to file to crop
     :param timestamp: timestamp that marks the start of the recording to keep
     """
+    global COMETA_TRIGGER_DELAY
     resString = ""
     with open(pathToData, "r") as file:
         for line in file:
             data = line.split(";")
-            dataTimestamp = float(data[0])
+            dataTimestamp = float(data[0]) - COMETA_TRIGGER_DELAY
             if dataTimestamp >= timestamp:
                 data[0] = str(round(1000*(dataTimestamp - timestamp), 1))
                 resString += ";".join(data)

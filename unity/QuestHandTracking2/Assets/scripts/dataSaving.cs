@@ -20,26 +20,10 @@ public class dataSaving : MonoBehaviour
     bool sendFeedBack = false;
 
 
-
-
-    void pingTest()
-    {
-        string fileName;
-        fileName = Application.persistentDataPath + "/Data/pingTest.txt";
-        if (System.IO.File.Exists(fileName))
-        {
-            System.IO.File.WriteAllText(fileName, "test");
-        }
-    }
-
-
-    // Update is called once per frame
+    // Update is called once per frame (50 Hz)
     void FixedUpdate()
     {
-        //pingTest();
-
-
-        testSaving();
+        getRemoteInputs();
 
         string frameLeftHand = computeFrameDesc(leftHand, leftHand.GetComponent<OVRHand>(), 0);
         string frameRightHand = computeFrameDesc(rightHand, rightHand.GetComponent<OVRHand>(), 4);
@@ -49,14 +33,14 @@ public class dataSaving : MonoBehaviour
             System.IO.File.AppendAllText(path, time + ";" + frameLeftHand + frameRightHand + "\n");
         }
 
-        if (sendFeedBack)
-        {
+        if (sendFeedBack) {
             System.IO.File.AppendAllText(Application.persistentDataPath + "/Data/startRecording.txt", " test");
             sendFeedBack = false;
         }
     }
 
-    private void testSaving()
+    //tests if a file with a certain name has been created by a remote control to command an action
+    private void getRemoteInputs()
     {
         string fileName;
         //test Start Recording
@@ -77,6 +61,7 @@ public class dataSaving : MonoBehaviour
         }
     }
     
+    //starts the recording, creates a file to put the record in and displays that the recording has started
     private void startRecording()
     {
         isSaving = true;
@@ -86,6 +71,8 @@ public class dataSaving : MonoBehaviour
         System.IO.File.WriteAllText(path, "");
     }
 
+
+    //stops the recording and displays that the recording has stopped
     private void stopRecording()
     {
         isSaving = false;
@@ -93,7 +80,7 @@ public class dataSaving : MonoBehaviour
     }
 
 
-
+    //gets all the informations on the hand gesture and formats it in a string on one line in csv format
     private string computeFrameDesc(OVRSkeleton handSkeleton, OVRHand hand, int fingerIndex)
     {
         OVRSkeleton.SkeletonPoseData pose = handSkeleton.getBoneData();
@@ -101,7 +88,6 @@ public class dataSaving : MonoBehaviour
         string text = "";
         text += (pose.IsDataValid ? 1 : 0) + ";";
         text += pose.RootPose.ToString() + ";";
-        //text += pose.RootScale + ";";
         for(int i=0; i< 19; ++i)
         {
             Vector3 boneRotation = pose.BoneRotations[i].FromFlippedXQuatf().eulerAngles;
@@ -111,6 +97,7 @@ public class dataSaving : MonoBehaviour
         {
             bool pinching = hand.GetFingerIsPinching((OVRHand.HandFinger)i);
             text += (pinching ? 1 : 0) + ";";
+            //displays pinching on screen
             if (pinching)
             {
                 pinchingDisplay.GetChild(fingerIndex + i -1).GetComponent<Renderer>().material = pinchingMaterialOn;

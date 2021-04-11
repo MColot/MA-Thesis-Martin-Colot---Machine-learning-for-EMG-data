@@ -49,8 +49,6 @@ def isValidFileName(s):
     return match.group(0) == s
 
 
-
-
 def recordQuest():
     """
 	sends a signal to the Oculus quest to tell him to start a new recording with a given name

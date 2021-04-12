@@ -2,8 +2,11 @@ ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
     - ONSPSettings
+    - ballButton
     - dataSaving
     - timeDisplay
+    Oculus.Platform.dll:
+    - Oculus.Platform.PlatformSettings
     Oculus.VR.Editor.dll:
     - Assets.Oculus.VR.Editor.OVRPlatformToolSettings
     - OVRConfig
@@ -56,6 +59,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 48
       Script: {instanceID: 0}
+    - Class: 54
+      Script: {instanceID: 0}
     - Class: 65
       Script: {instanceID: 0}
     - Class: 81
@@ -87,6 +92,8 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12958}
     - Class: 114
+      Script: {instanceID: 13218}
+    - Class: 114
       Script: {instanceID: 13516}
     - Class: 114
       Script: {instanceID: 13732}
@@ -94,9 +101,13 @@ ScriptsOnlyBuild:
       Script: {instanceID: 13810}
     - Class: 114
       Script: {instanceID: 14244}
+    - Class: 114
+      Script: {instanceID: 35968}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
+      Script: {instanceID: 0}
+    - Class: 135
       Script: {instanceID: 0}
     - Class: 137
       Script: {instanceID: 0}
@@ -1767,6 +1778,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
+  - hash:
+      serializedVersion: 2
+      Hash: 6ac43f4021cc89b869978458513a424e
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: ballButton
   platform: 13
   scenePathNames:
   - Assets/Scenes/dataRecording.unity

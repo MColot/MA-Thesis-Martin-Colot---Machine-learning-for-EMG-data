@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Scenes/dataDisplaying.unity
+- path: Assets/Scenes/dataRecording.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0

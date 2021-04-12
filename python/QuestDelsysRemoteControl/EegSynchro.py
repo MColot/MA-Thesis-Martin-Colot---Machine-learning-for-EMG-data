@@ -13,7 +13,7 @@ def sync(pathEEG):
     triggerTimes = []
     for event in events[0]:
         if event[2] == triggerAnnotation:
-            triggerTimes.append(event[0]/raw.info["sfreq"] )
+            triggerTimes.append(event[0]/raw.info["sfreq"])
 
     # we only consider the first and the last triggers
     raw.crop(tmin=triggerTimes[0], tmax=triggerTimes[-1])

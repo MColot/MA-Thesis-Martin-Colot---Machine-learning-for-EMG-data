@@ -1,3 +1,5 @@
 
 *.lock
 *.meta
+python/QuestDelsysRemoteControl/S1_2_task2as int ICAout 6 20 23.set
+python/QuestDelsysRemoteControl/S1_2_task2as int ICAout 6 20 23.fdt

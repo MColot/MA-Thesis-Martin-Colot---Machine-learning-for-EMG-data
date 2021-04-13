@@ -1,9 +1,11 @@
 ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
+    - GestureRecognizer
     - ONSPSettings
     - ballButton
     - dataSaving
+    - multipleGestureRecognizer
     - timeDisplay
     Oculus.Platform.dll:
     - Oculus.Platform.PlatformSettings
@@ -74,19 +76,21 @@ ScriptsOnlyBuild:
     - Class: 109
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11400}
+      Script: {instanceID: 11398}
     - Class: 114
-      Script: {instanceID: 11554}
+      Script: {instanceID: 11552}
     - Class: 114
-      Script: {instanceID: 11800}
+      Script: {instanceID: 11798}
     - Class: 114
-      Script: {instanceID: 11858}
+      Script: {instanceID: 11856}
     - Class: 114
-      Script: {instanceID: 12128}
+      Script: {instanceID: 12126}
     - Class: 114
-      Script: {instanceID: 12144}
+      Script: {instanceID: 12142}
     - Class: 114
-      Script: {instanceID: 12412}
+      Script: {instanceID: 12410}
+    - Class: 114
+      Script: {instanceID: 12588}
     - Class: 114
       Script: {instanceID: 12862}
     - Class: 114
@@ -102,7 +106,9 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 14244}
     - Class: 114
-      Script: {instanceID: 35968}
+      Script: {instanceID: 15488}
+    - Class: 114
+      Script: {instanceID: 24612}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -854,6 +860,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: OvrAvatarSkinnedMeshRenderPBSComponent
+  - hash:
+      serializedVersion: 2
+      Hash: 6ac43f4021cc89b869978458513a424e
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: ballButton
   - hash:
       serializedVersion: 2
       Hash: d4020bafcd3ccbb5601a6e6c8ac78be0
@@ -1780,10 +1792,16 @@ ScriptsOnlyBuild:
     className: PlayableTrack
   - hash:
       serializedVersion: 2
-      Hash: 6ac43f4021cc89b869978458513a424e
+      Hash: 11f1a4359066c8df9c3b7949d5583965
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
-    className: ballButton
+    className: GestureRecognizer
+  - hash:
+      serializedVersion: 2
+      Hash: 9aa6c16a051a2af6175df9330e1c5935
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: multipleGestureRecognizer
   platform: 13
   scenePathNames:
   - Assets/Scenes/dataRecording.unity

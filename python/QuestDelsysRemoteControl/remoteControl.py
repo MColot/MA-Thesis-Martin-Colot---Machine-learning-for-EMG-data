@@ -277,10 +277,22 @@ def reset():
     triggerTimestamp = None
     serialPort = None
 
+def saveGesture():
+    """
+    tells the oculus quest to recognize the current hand gesture and place a boolean in the data when it is done
+    """
+    global questIsRecording
+    if questIsRecording:
+        print(" > Error: recording gesture while recording is active will corrupt data")
+        return
+    print("	> Sending signal to Oculus Quest")
+    command = "adb shell touch sdcard/Android/data/com.DefaultCompany.QuestHandTracking2/files/data/saveGesture.txt"
+    runBashCommandWithDisplay(command)
+
 
 exitProg = False
 commands = {"start": startRecording, "stop": stopRecording, "startQuest": startRecordingQuest,
-            "startEMG": startRecordingEMG, "reset": reset, "exit": exitProgram}
+            "startEMG": startRecordingEMG, "reset": reset, "gesture":saveGesture, "exit": exitProgram}
 currentRecording = ""
 questIsRecording = False
 EmgIsRecording = False
@@ -297,6 +309,7 @@ if __name__ == "__main__":
         print("startQuest: start recording of quest only")
         print("startEMG: start recording of EMG only")
         print("reset: stops recording on the quest and resets everything")
+        print("gesture: tells the Oculus quest to recognize the current hand gesture")
         print("exit: exit the program")
         print("------------------------------")
 

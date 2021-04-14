@@ -5,6 +5,7 @@ ScriptsOnlyBuild:
     - ONSPSettings
     - ballButton
     - dataSaving
+    - gestureDisplay
     - multipleGestureRecognizer
     - timeDisplay
     Oculus.Platform.dll:
@@ -100,15 +101,17 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 13516}
     - Class: 114
-      Script: {instanceID: 13732}
+      Script: {instanceID: 13692}
     - Class: 114
-      Script: {instanceID: 13810}
+      Script: {instanceID: 13734}
     - Class: 114
-      Script: {instanceID: 14244}
+      Script: {instanceID: 13812}
     - Class: 114
-      Script: {instanceID: 15488}
+      Script: {instanceID: 14092}
     - Class: 114
-      Script: {instanceID: 24612}
+      Script: {instanceID: 14248}
+    - Class: 114
+      Script: {instanceID: 33818}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -120,6 +123,10 @@ ScriptsOnlyBuild:
     - Class: 157
       Script: {instanceID: 0}
     - Class: 196
+      Script: {instanceID: 0}
+    - Class: 212
+      Script: {instanceID: 0}
+    - Class: 213
       Script: {instanceID: 0}
   scriptHashData:
   - hash:
@@ -1468,6 +1475,12 @@ ScriptsOnlyBuild:
     className: GraphicRaycaster
   - hash:
       serializedVersion: 2
+      Hash: 11f1a4359066c8df9c3b7949d5583965
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: GestureRecognizer
+  - hash:
+      serializedVersion: 2
       Hash: 34c971ccf5a4d4c276f7753251cba95d
     assemblyName: Oculus.VR.dll
     namespaceName: 
@@ -1622,6 +1635,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: TeleportTargetHandlerNavMesh
+  - hash:
+      serializedVersion: 2
+      Hash: 87b4d2cd6d5dbfe935430109275cf904
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: multipleGestureRecognizer
   - hash:
       serializedVersion: 2
       Hash: 85e8aa29d665952264bc2b39d7dd56b9
@@ -1792,16 +1811,10 @@ ScriptsOnlyBuild:
     className: PlayableTrack
   - hash:
       serializedVersion: 2
-      Hash: 11f1a4359066c8df9c3b7949d5583965
+      Hash: c5dbddc22ec085d417248014d46d5491
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
-    className: GestureRecognizer
-  - hash:
-      serializedVersion: 2
-      Hash: 9aa6c16a051a2af6175df9330e1c5935
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: multipleGestureRecognizer
+    className: gestureDisplay
   platform: 13
   scenePathNames:
   - Assets/Scenes/dataRecording.unity

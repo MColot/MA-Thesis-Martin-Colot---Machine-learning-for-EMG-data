@@ -290,9 +290,18 @@ def saveGesture():
     runBashCommandWithDisplay(command)
 
 
+def exportGestures():
+    print("	> Sending signal to Oculus Quest")
+    command = "adb shell touch sdcard/Android/data/com.DefaultCompany.QuestHandTracking2/files/data/exportGestures.txt"
+    runBashCommandWithDisplay(command)
+
+def importGestures():
+    pushCommand = "adb push importGestures.txt sdcard/Android/data/com.DefaultCompany.QuestHandTracking2/files/data"
+    runBashCommandWithDisplay(pushCommand)
+
 exitProg = False
 commands = {"start": startRecording, "stop": stopRecording, "startQuest": startRecordingQuest,
-            "startEMG": startRecordingEMG, "reset": reset, "gesture":saveGesture, "exit": exitProgram}
+            "startEMG": startRecordingEMG, "reset": reset, "gesture":saveGesture, "exportGestures": exportGestures, "importGestures": importGestures, "exit": exitProgram}
 currentRecording = ""
 questIsRecording = False
 EmgIsRecording = False
@@ -310,6 +319,8 @@ if __name__ == "__main__":
         print("startEMG: start recording of EMG only")
         print("reset: stops recording on the quest and resets everything")
         print("gesture: tells the Oculus quest to recognize the current hand gesture")
+        print("exportGestures: export the currently recorded gestures in a text file on the oculus quest")
+        print("importGestures: import the gestures in the file 'importGestures.txt' on the oculus quest")
         print("exit: exit the program")
         print("------------------------------")
 

@@ -7,20 +7,25 @@ using System;
 public class multipleGestureRecognizer : MonoBehaviour
 {
     public GestureRecognizer gestureRecognizer;
-    public OVRSkeleton leftHand;
     public OVRSkeleton rightHand;
     public TextMesh textDisplay;
-    
-    private int gestureCount = 0;
+    public gestureDisplay display;
 
     private void Start()
     {
         IList<OVRBone> bonesR = rightHand.Bones;
-        for (int i = 0; i < 5; ++i)
-        {
-            gestureRecognizer.fingers[i] = bonesR[bonesR.Count - 5 + i].Transform.gameObject;
-        }
         gestureRecognizer.hand = bonesR[0].Transform.gameObject;
+        for (int i = 0; i < 23; ++i)
+        {
+            gestureRecognizer.fingers[i] = bonesR[i+1].Transform.gameObject;
+        }
+
+        //test import gestures from file at start
+        string fileName = Application.persistentDataPath + "/Data/importGesturesStart.txt";
+        if (System.IO.File.Exists(fileName))
+        {
+            importGestures(fileName);
+        }
     }
 
 
@@ -30,9 +35,27 @@ public class multipleGestureRecognizer : MonoBehaviour
         string fileName = Application.persistentDataPath + "/Data/saveGesture.txt";
         if (System.IO.File.Exists(fileName))
         {
-            textDisplay.text += "Saving new Gesture \n";
+            //textDisplay.text += "Saving new Gesture \n";
             System.IO.File.Delete(fileName);
             saveCurrentGesture();
+        }
+
+        //test import gestures from file
+        fileName = Application.persistentDataPath + "/Data/importGestures.txt";
+        if (System.IO.File.Exists(fileName))
+        {
+            //textDisplay.text += "importing Gestures \n";
+            importGestures(fileName);
+            System.IO.File.Delete(fileName);
+        }
+
+        //test export gestures in file
+        fileName = Application.persistentDataPath + "/Data/exportGestures.txt";
+        if (System.IO.File.Exists(fileName))
+        {
+            //textDisplay.text += "Exporting Gestures \n";
+            System.IO.File.Delete(fileName);
+            exportGestures();
         }
     }
 
@@ -40,21 +63,99 @@ public class multipleGestureRecognizer : MonoBehaviour
     {
         try
         {
-            gestureRecognizer.SaveAsGestureWithName(gestureCount.ToString());
-            gestureRecognizer.savedGestures[gestureCount].onRecognized.AddListener(() => { notifyGesture(); });
-            ++gestureCount; 
+            gestureRecognizer.SaveAsGestureWithName((gestureRecognizer.savedGestures.Count).ToString());
+            gestureRecognizer.savedGestures[gestureRecognizer.savedGestures.Count - 1].onRecognized.AddListener(() => { notifyGesture(); });
 
-            textDisplay.text += "New gesture saved \n";
+            //textDisplay.text += "New gesture saved \n";
         }
         catch(Exception e)
         {
-            textDisplay.text += e + "\n";
+            //textDisplay.text += e + "\n";
         }
     }
 
     public void notifyGesture()
     {
-        textDisplay.text += "Gesture detected : " + gestureRecognizer.gestureDetected.gestureName + "\n";
+        textDisplay.text = "Gesture detected : " + gestureRecognizer.gestureDetected.gestureName;
+        display.notifyGesture(gestureRecognizer.gestureDetected.gestureName);
     }
-    
+
+    public void onNothingDetected()
+    {
+        textDisplay.text = "No gesture detected";
+    }
+
+
+    private void exportGestures()
+    {
+        string path = Application.persistentDataPath + "/Data/GesturesExport.txt";
+        foreach (Gesture g in gestureRecognizer.savedGestures)
+        {
+            System.IO.File.AppendAllText(path, g.gestureName + ":");
+            foreach (Vector3 pos in g.positionsPerFinger)
+            {
+                System.IO.File.AppendAllText(path, pos.ToString("F8") + ";");
+            }
+            System.IO.File.AppendAllText(path, "$\n");
+        }
+    }
+
+    private void importGestures(string fileName)
+    {
+        string fileContent = System.IO.File.ReadAllText(fileName);
+
+        string currentString = "";
+        Gesture currentGesture = new Gesture("", new List<Vector3>());
+        foreach(char c in fileContent)
+        {
+            if(c == ':')
+            {
+                //textDisplay.text += "New gesture imported : " + currentString + " \n";
+                currentGesture.gestureName = currentString;
+                currentString = "";
+            }
+            else if(c == ';')
+            {
+                //textDisplay.text += "new value : " + currentString + " \n";
+                currentGesture.positionsPerFinger.Add(parseVector3(currentString));
+                currentString = "";
+            }
+            else if(c == '$')
+            {
+                currentGesture.onRecognized.AddListener(() => { notifyGesture(); });
+                gestureRecognizer.savedGestures.Add(currentGesture);
+                //textDisplay.text += "importation done : "+ gestureRecognizer.savedGestures.Count +" gestures saved\n";
+                currentGesture = new Gesture("", new List<Vector3>());
+            }
+            else if (c != '\n')
+            {
+                currentString += c;
+            }
+        }
+    }
+
+    private Vector3 parseVector3(string s)
+    {
+        Vector3 res = new Vector3(0, 0, 0);
+        int id = 0;
+        string current = "";
+        foreach(char c in s)
+        {
+            if(c == ',' || c == ')')
+            {
+                float v = float.Parse(current);
+                if (id == 0) res.x = v;
+                else if (id == 1) res.y = v;
+                else if (id == 2) res.z = v;
+                ++id;
+                current = "";
+            }
+            else if(c != '(')
+            {
+                current += c;
+            }
+        }
+
+        return res;
+    }
 }

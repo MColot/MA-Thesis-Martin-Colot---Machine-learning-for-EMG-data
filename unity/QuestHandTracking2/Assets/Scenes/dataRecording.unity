@@ -1886,6 +1886,7 @@ MonoBehaviour:
   savingMaterialOff: {fileID: 2100000, guid: 6150a5c887147d2468853ad5c90325c7, type: 2}
   pinchingMaterialOff: {fileID: 2100000, guid: 51af1f007c626904c8003e989d7fe0cb, type: 2}
   pinchingMaterialOn: {fileID: 2100000, guid: 1612e6aed5359784e9a032bc3ecb82be, type: 2}
+  gestureRecognizer: {fileID: 73028971}
 --- !u!4 &1908871873
 Transform:
   m_ObjectHideFlags: 0

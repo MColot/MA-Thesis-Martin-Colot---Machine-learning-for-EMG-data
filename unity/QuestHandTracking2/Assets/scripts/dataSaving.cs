@@ -13,6 +13,7 @@ public class dataSaving : MonoBehaviour
     public Material savingMaterialOff;
     public Material pinchingMaterialOff;
     public Material pinchingMaterialOn;
+    public GestureRecognizer gestureRecognizer;
 
     string path;
     bool isSaving = false;
@@ -25,12 +26,17 @@ public class dataSaving : MonoBehaviour
     {
         getRemoteInputs();
 
-        string frameLeftHand = computeFrameDesc(leftHand, leftHand.GetComponent<OVRHand>(), 0);
-        string frameRightHand = computeFrameDesc(rightHand, rightHand.GetComponent<OVRHand>(), 4);
-
-        if (isSaving) {
+        if (isSaving)
+        {
+            string frameLeftHand = computeFrameDesc(leftHand, leftHand.GetComponent<OVRHand>(), 0);
+            string frameRightHand = computeFrameDesc(rightHand, rightHand.GetComponent<OVRHand>(), 4);
             string time = ((System.DateTime.UtcNow.Ticks - 621355968000000000) / 10000000.0d).ToString();
-            System.IO.File.AppendAllText(path, time + ";" + frameLeftHand + frameRightHand + "\n");
+            string gestureInfo = "None";
+            if(gestureRecognizer.gestureDetected != null)
+            {
+                gestureInfo = gestureRecognizer.gestureDetected.gestureName;
+            }
+            System.IO.File.AppendAllText(path, time + ";" + frameLeftHand + frameRightHand + gestureInfo + ";\n");
         }
 
         if (sendFeedBack) {

@@ -77,7 +77,7 @@ public class multipleGestureRecognizer : MonoBehaviour
     public void notifyGesture()
     {
         textDisplay.text = "Gesture detected : " + gestureRecognizer.gestureDetected.gestureName;
-        display.notifyGesture(gestureRecognizer.gestureDetected.gestureName);
+        display.notifyGesture(int.Parse(gestureRecognizer.gestureDetected.gestureName));
     }
 
     public void onNothingDetected()

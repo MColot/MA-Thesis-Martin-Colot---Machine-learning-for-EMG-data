@@ -1367,7 +1367,7 @@ ScriptsOnlyBuild:
     className: PoseEditHelper
   - hash:
       serializedVersion: 2
-      Hash: c5dbddc22ec085d417248014d46d5491
+      Hash: e13d78d69907f15fcbb187926faa448b
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: gestureDisplay

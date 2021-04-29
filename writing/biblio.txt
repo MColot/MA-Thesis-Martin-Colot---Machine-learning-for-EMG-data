@@ -116,7 +116,7 @@ url={https://doi.org/10.5402/2012/604314}
 }
 
 
-﻿@Article{ref:identifiedEMGlocation,
+@Article{ref:identifiedEMGlocation,
 author={Jarque-Bou, N{\'e}stor J.
 and Vergara, Margarita
 and Sancho-Bru, Joaqu{\'i}n L.
@@ -133,4 +133,38 @@ pages={91},
 issn={1743-0003},
 doi={10.1186/s12984-018-0437-0},
 url={https://doi.org/10.1186/s12984-018-0437-0}
+}
+
+
+@article{ref:ADL1,
+author = {Christer Sollerman and Arvid Ejeskär},
+title = {Sollerman Hand Function Test: A Standardised Method and its Use in Tetraplegic Patients},
+journal = {Scandinavian Journal of Plastic and Reconstructive Surgery and Hand Surgery},
+volume = {29},
+number = {2},
+pages = {167-176},
+year  = {1995},
+publisher = {Taylor & Francis},
+doi = {10.3109/02844319509034334},
+    note ={PMID: 7569815},
+URL = { 
+        https://doi.org/10.3109/02844319509034334
+},
+eprint = { 
+        https://doi.org/10.3109/02844319509034334
+}
+}
+
+
+@Article{ref:myoArmBand,
+author={P. Visconti,  F. Gaetani,  G.A. Zappatore, P. Primiceri
+and Kawasaki, Haruhisa},
+title={Technical Features and Functionalities of Myo Armband: An Overview on Related Literature and Advanced Applications of Myoelectric Armbands Mainly Focused on Arm Prostheses},
+journal={International Journal on Smart Sensing and Intelligent Systems.},
+year={2018},
+month={Sep},
+day={3},
+volume={11},
+pages={1-25},
+url={https://doi.org/10.21307/ijssis-2018-005}
 }

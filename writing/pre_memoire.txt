@@ -1,6 +1,6 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
-\usepackage[margin=1in]{geometry}
+\usepackage[margin=3cm]{geometry}
 \usepackage{mathtools}
 \DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
 \usepackage{amsfonts} 
@@ -248,14 +248,29 @@ This techniques has been used in multiple studies \cite{ref:singleFingerGestPlus
 ADLs are gestures that represents real life movements of everyday life. For example, tying a shoelace or typing on a keypad are considered as ADLs. The advantage of using ADLs as base for an hand gesture regression data set is that they allow to get the mot precision for gestures that the final users will be often performing. The KIN-MUS IJI data set \cite{ref:KinMusUji} based its gestures on 26 ADL. 20 of them are taken from the Sollerman Hand Function test (SHFT), which is often used to evaluate the upper extremity’s functional recovery \cite{doi:SHFT}. These 20 ADL aims at showing similar muscle activation pattern as the eight most common hand grips. Performing ADL gesture involve the subject to interact with objects which must be taken into account for the data collection protocol.
 
 
-
-
 \subsubsection{Sign language}
+
+Studies have tried to create sEMG based devices capable of translating sign language into text \cite{ref:signLang, ref:signLang2}. In particular, the Taiwanese sign language is known to contain 50 fundamental postures which involve lots of linkage of multiple fingers \cite{ref:singleFingerGestPlusSignLang, ref:signLang}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=5cm]{images/taiwaneseSignLanguage.png}
+    \caption{The 50 fundamental postures of Taiwanese sign language \cite{ref:signLang}}
+    \label{fig:signLang}
+\end{figure}
+
+Sign languages also has the advantage of giving a set of many postures that are well identifiable from each other. This gives better chance for a classification model to get a high accuracy. It has been shown that, even a small number of sEMG electrodes (organized in a myo armband \cite{ref:myoArmBand}) enable to get classify such gestures with good precision \cite{ref:signLang2}.
+
+
+
+
 
 \subsubsection{Irregular moves}
 
 \subsubsection{Maximum voluntary contraction (MVC)}
+https://jneuroengrehab.biomedcentral.com/articles/10.1186/1743-0003-11-122
 
+https://pubmed.ncbi.nlm.nih.gov/29355119/
 
 \subsection{Hand position data representation}
 
@@ -354,7 +369,7 @@ All the collected data is appended in a csv file (with $";"$ separator) where ea
 
 \begin{table}[H]
     \centering
-    \begin{tabular}{|c|p{13.5cm}|}
+    \begin{tabular}{|c|p{12cm}|}
         \hline
         Column index & data \\
         \hline

@@ -285,3 +285,21 @@ eprint = {
     pages = {59--66},
     publisher = {Hongkong}
 }
+
+
+@article{ref:signLang2,
+  doi = {10.3390/s20205807},
+  url = {https://doi.org/10.3390/s20205807},
+  year = {2020},
+  month = oct,
+  publisher = {{MDPI} {AG}},
+  volume = {20},
+  number = {20},
+  pages = {5807},
+  author = {Shigeyuki Tateno and Hongbin Liu and Junhong Ou},
+  title = {Development of Sign Language Motion Recognition System for Hearing-Impaired People Using Electromyography Signal},
+  journal = {Sensors}
+}
+
+
+@article{ref:fingerMoveIdentification, Haque_2017, title={Finger Movement Identification Using EMG Signal on the Forearm}, volume={4}, url={https://journals.scholarpublishing.org/index.php/JBEMi/article/view/3528}, DOI={10.14738/jbemi.44.3528}, abstractNote={Finger movement identification is an important innovative interfacing method which has countless possible applications. It can be used to create a new age in human computer interfacing (HCI) devices. It can also be applied to medical applications, such as in the development of a more advanced prosthetic hand. The current research for this purpose includes methods such as computer vision and detecting finger motion through mechanical vibrations from skin surface. They have the limitation of being restrictive, in terms of the degree of movement that the hand is allowed from a certain optimum position, as well as being susceptible to environmental factors. In this study, the surface electromyography (sEMG) of the forearm from skin electrodes is developed and interfaced with computer. The response at the flexor carpi radialis muscle of the forearm is plotted for a group of subjects to observe the qualitative responsiveness of the sEMG to different types of finger movements. The results show that finger movement generates a corresponding response on the EMG electrodes. For the particular muscle being studied, the greatest individual digit amplitude response was observed for the ring finger (digitus annularis) across the subjects. In future studies, this research could be made more quantitative in nature by observing the frequency content of a variety of hand gestures across a sample of subjects}, number={4}, journal={Journal of Biomedical Engineering and Medical Imaging}, author={Shaikh, Naeem and Muhammad, Fida and Shamim, Muhammad Fahad and Shahid, Nageen and Omair, Syed Mohammad and Ul Haque, Muhammad Zeeshan}, year={2017}, month={Sep.}, pages={12} }

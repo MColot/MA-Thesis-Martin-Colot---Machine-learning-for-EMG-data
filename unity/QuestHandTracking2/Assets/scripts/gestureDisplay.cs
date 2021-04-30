@@ -5,10 +5,6 @@ using System;
 
 public class gestureDisplay : MonoBehaviour
 {
-    public int movePerSeq = 5;
-    public int seqRep = 5;
-
-
     public int phase = 0;
 
     public GameObject handMvcDisplay;
@@ -30,54 +26,64 @@ public class gestureDisplay : MonoBehaviour
     private int imageCounter = 0;
     private bool waitingForGesture = true;
 
+    private int repetitions = 0;
+    private List<int> gesturesToPerform;
+
 
     private void Update()
     {
-        //test displayNextPhase
-        string fileName = Application.persistentDataPath + "/Data/nextPhase.txt";
+        //test display MVC
+        string fileName = Application.persistentDataPath + "/Data/mvc.txt";
         if (System.IO.File.Exists(fileName))
         {
             System.IO.File.Delete(fileName);
-            nextPhase();
+            displayMVC();
+        }
+
+        //test display sign language
+        fileName = Application.persistentDataPath + "/Data/signLang.txt";
+        if (System.IO.File.Exists(fileName))
+        {
+            string param = System.IO.File.ReadAllText(fileName);
+            parseParamSignLang(param);
+            System.IO.File.Delete(fileName);
+            displaysignLanguage();
+        }
+
+        //test display free moves
+        fileName = Application.persistentDataPath + "/Data/freemove.txt";
+        if (System.IO.File.Exists(fileName))
+        {
+            System.IO.File.Delete(fileName);
+            displayFreeMove();
         }
     }
 
-    public void nextPhase()
+    private void displayMVC()
     {
-        phase = (phase + 1) % 4;
-        if(phase == 0)
-        {
-            freeMoveDisplay.SetActive(false);
-            handMvcDisplay.SetActive(true);
-        }
-        else if (phase == 1)
-        {
-            handMvcDisplay.SetActive(false);
-            signLanguageDisplay.SetActive(true);
-            imageCounter = 0;
-            updateImage();
-            //pronationDisplay.SetActive(true);
-            //supinationDisplay.SetActive(false);
-        }
-        /*
-        else if (phase == 2)
-        {
-            imageCounter = 0;
-            updateImage();
-            //pronationDisplay.SetActive(false);
-            //supinationDisplay.SetActive(true);
-        }*/
-        else if (phase == 2)
-        {
-            signLanguageDisplay.SetActive(false);
-            pinchingDisplay.SetActive(true);
-        }
-        else if (phase == 3)
-        {
-            pinchingDisplay.SetActive(false);
-            freeMoveDisplay.SetActive(true);
-        }
+        phase = 0;
+        freeMoveDisplay.SetActive(false);
+        signLanguageDisplay.SetActive(false);
+        handMvcDisplay.SetActive(true);
     }
+
+    private void displaysignLanguage()
+    {
+        phase = 1;
+        freeMoveDisplay.SetActive(false);
+        signLanguageDisplay.SetActive(true);
+        handMvcDisplay.SetActive(false);
+        updateImage();
+    }
+
+    private void displayFreeMove()
+    {
+        phase = 2;
+        freeMoveDisplay.SetActive(true);
+        signLanguageDisplay.SetActive(false);
+        handMvcDisplay.SetActive(false);
+    }
+    
     
 
     public void notifyGesture(int imageId)
@@ -103,6 +109,7 @@ public class gestureDisplay : MonoBehaviour
 
         int nextImageId = imageToDisplay(imageCounter);
         if (nextImageId >= signLanguageImages.Count) return;
+        if (imageCounter >= repetitions * gesturesToPerform.Count) return;
         currentImageId = nextImageId;
         ++imageCounter;
 
@@ -112,13 +119,44 @@ public class gestureDisplay : MonoBehaviour
 
     int imageToDisplay(int counter)
     {
-        int imageGroup = counter / (movePerSeq * seqRep);
-        int groupRep = (counter % (movePerSeq * seqRep)) / seqRep;
-        int imageId = (counter % (movePerSeq * seqRep)) % seqRep;
 
-        descriptionDisplay.text = "Gesture sequence " + imageGroup.ToString() + ", repetition " + groupRep.ToString() + ", gesture " + (groupRep * imageGroup + imageId).ToString();
+        int imageId = gesturesToPerform[counter % gesturesToPerform.Count];
+
+        descriptionDisplay.text = "Repetition " +  (1+ (counter / gesturesToPerform.Count)).ToString() + "/" + repetitions.ToString() + ", gesture " + imageId.ToString();
         
+        return imageId;
+    }
 
-        return seqRep * imageGroup + imageId;
+
+    void parseParamSignLang(string p)
+    {
+        currentImageId = -1;
+        imageCounter = 0;
+        repetitions = 0;
+        gesturesToPerform = new List<int>();
+
+        string curr = "";
+        char c = p[0];
+        int i = 0;
+        while(c != '\n')
+        {
+            curr += c;
+            ++i;
+            c = p[i];
+        }
+        repetitions = int.Parse(curr);
+        curr = "";
+        while(i < p.Length-1)
+        {
+            ++i;
+            c = p[i];
+            if (c != ' ') curr += c;
+            else
+            {
+                gesturesToPerform.Add(int.Parse(curr));
+                curr = "";
+            }
+        }
+        gesturesToPerform.Add(int.Parse(curr));
     }
 }

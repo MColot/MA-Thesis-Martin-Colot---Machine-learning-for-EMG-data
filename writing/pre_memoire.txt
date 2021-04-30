@@ -245,6 +245,11 @@ This techniques has been used in multiple studies \cite{ref:singleFingerGestPlus
 
 \subsubsection{Activities of daily living (ADL)}
 
+ADLs are gestures that represents real life movements of everyday life. For example, tying a shoelace or typing on a keypad are considered as ADLs. The advantage of using ADLs as base for an hand gesture regression data set is that they allow to get the mot precision for gestures that the final users will be often performing. The KIN-MUS IJI data set \cite{ref:KinMusUji} based its gestures on 26 ADL. 20 of them are taken from the Sollerman Hand Function test (SHFT), which is often used to evaluate the upper extremity’s functional recovery \cite{doi:SHFT}. These 20 ADL aims at showing similar muscle activation pattern as the eight most common hand grips. Performing ADL gesture involve the subject to interact with objects which must be taken into account for the data collection protocol.
+
+
+
+
 \subsubsection{Sign language}
 
 \subsubsection{Irregular moves}
@@ -253,6 +258,8 @@ This techniques has been used in multiple studies \cite{ref:singleFingerGestPlus
 
 
 \subsection{Hand position data representation}
+
+\subsubsection{Gesture duration and repetition}
 
 
 \subsection{Synchronization}

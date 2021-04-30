@@ -299,13 +299,40 @@ def importGestures():
     pushCommand = "adb push importGestures.txt sdcard/Android/data/com.DefaultCompany.QuestHandTracking2/files/data"
     runBashCommandWithDisplay(pushCommand)
 
-def nextInstruction():
-    command = "adb shell touch sdcard/Android/data/com.DefaultCompany.QuestHandTracking2/files/data/nextPhase.txt"
+def mvcInstruction():
+    command = "adb shell touch sdcard/Android/data/com.DefaultCompany.QuestHandTracking2/files/data/mvc.txt"
+    runBashCommandWithDisplay(command)
+
+def signLangInstruction():
+    rep = input("   > Enter number of repetition: ")
+
+    match = re.search("[0-9]*", rep)
+    if match.group(0) != rep:
+        print(" > Invalid number")
+        return
+
+    gestures = input("	> Enter sequence of gesture numbers: ")
+    match = re.search("([0-9]* *)*", gestures)
+    if match.group(0) != gestures:
+        print(" > Invalid sequence")
+        return
+
+    f = open("signLang.txt", "w")
+    f.write(rep + "\n" + gestures)
+    f.close()
+
+    pushCommand = "adb push signLang.txt sdcard/Android/data/com.DefaultCompany.QuestHandTracking2/files/data"
+    runBashCommandWithDisplay(pushCommand)
+
+    os.remove("signLang.txt")
+
+def freeMoveInstruction():
+    command = "adb shell touch sdcard/Android/data/com.DefaultCompany.QuestHandTracking2/files/data/freeMove.txt"
     runBashCommandWithDisplay(command)
 
 exitProg = False
 commands = {"start": startRecording, "stop": stopRecording, "startQuest": startRecordingQuest,
-            "startEMG": startRecordingEMG, "reset": reset, "gesture":saveGesture, "exportGestures": exportGestures, "importGestures": importGestures, "exit": exitProgram, "next":nextInstruction}
+            "startEMG": startRecordingEMG, "reset": reset, "gesture":saveGesture, "exportGestures": exportGestures, "importGestures": importGestures, "exit": exitProgram, "mvc": mvcInstruction, "sign":signLangInstruction, "freemove":freeMoveInstruction}
 currentRecording = ""
 questIsRecording = False
 EmgIsRecording = False
@@ -321,7 +348,9 @@ if __name__ == "__main__":
         print("stop: stop recording")
         print("startQuest: start recording of quest only")
         print("startEMG: start recording of EMG only")
-        print("next: tells the Oculus quest to display the next sequence of instructions")
+        print("mvc: tells the Oculus quest to display the instructions for mvc")
+        print("sign: tells the Oculus quest to display the instructions for sign language")
+        print("freemove: tells the Oculus quest to display the instructions for free moves")
         print("reset: stops recording on the quest and resets everything")
         print("gesture: tells the Oculus quest to recognize the current hand gesture")
         print("exportGestures: export the currently recorded gestures in a text file on the oculus quest")

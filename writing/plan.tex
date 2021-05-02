@@ -1,0 +1,196 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{mathtools}
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\usepackage{amsfonts} 
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{float}
+
+\title{Master Thesis\\Machine Learning For EMG Data}
+\author{Martin Colot}
+\date{2021}
+
+\begin{document}
+
+\maketitle
+
+
+\section{Introduction}
+
+
+\section{State of the art}
+
+\subsection{EMG}
+
+\begin{itemize}
+    \item What is an EMG signal
+    \item EMG and EEG
+    \item EMG and ENG \\
+    https://pubmed.ncbi.nlm.nih.gov/33091891/  \\
+    https://pubmed.ncbi.nlm.nih.gov/29498358/
+    \item sEMG and iEMG sensor
+    \item high density EMG \\
+    https://www.sciencedirect.com/science/article/abs/pii/S1746809419302186 \\
+    https://pubmed.ncbi.nlm.nih.gov/22180516/
+\end{itemize}
+
+
+\subsection{Myoelectric hand prosthesis}
+
+\begin{itemize}
+    \item Purpose
+    \item Existing brands \\
+    https://ieeexplore.ieee.org/document/8733629 \\
+    https://app.dimensions.ai/details/publication/pub.1112252996?and\_facet\_journal=jour.1041772
+    \item Difficulties
+    \begin{itemize}
+        \item limitation of non-invasive sensor
+        \item Lack of EMG data for amputees
+        \item Mirrored billateral training \\
+        https://pubmed.ncbi.nlm.nih.gov/22180516/ \\
+        https://pubmed.ncbi.nlm.nih.gov/22006428/
+    \end{itemize}
+\end{itemize}
+
+
+\subsection{Hand gesture prediction}
+
+\begin{itemize}
+    \item Applications (prosthetic, VR)
+    \item Classification and regression
+\end{itemize}
+
+\subsubsection{Preprocessing and feature selection}
+
+\subsubsection{Gesture classification}
+
+\begin{itemize}
+    \item Classification techniques \\
+    https://journals.physiology.org/doi/pdf/10.1152/jn.00555.2014 \\
+    https://www.nature.com/articles/s41551-016-0025
+    \item Limitations
+\end{itemize}
+
+
+\subsubsection{Movement regression (joint angle classification)}
+
+\begin{itemize}
+    \item Needed for a more natural feeling
+    \item 27 degrees of freedom of the hand
+    \item Regression techniques \\
+    https://jneuroengrehab.biomedcentral.com/articles/10.1186/1743-0003-11-122 \\
+    https://www.hindawi.com/journals/isrn/2012/604314/ \\
+    https://pubmed.ncbi.nlm.nih.gov/22180516/
+\end{itemize}
+
+
+
+\subsection{Existing data set of synchronized EMG and hand gesture data}
+
+\begin{itemize}
+    \item Which ones exist \\
+    https://www.nature.com/articles/s41597-019-0285-1 \\
+    https://www.nature.com/articles/sdata201453 \\
+    https://jneuroengrehab.biomedcentral.com/articles/10.1186/1743-0003-11-122
+    \item Data collection
+    \begin{itemize}
+        \item Experimental setup
+        \begin{itemize}
+            \item EMG sensor
+            \item Hand pose Estimation
+        \end{itemize}
+        \item Electrodes placement
+        \begin{itemize}
+            \item Palpation\\
+            https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0186132\\
+            https://www.hindawi.com/journals/isrn/2012/604314/
+            \item Identified zones of activity \\
+            https://jneuroengrehab.biomedcentral.com/articles/10.1186/s12984-018-0437-0
+            \item Arm band \\
+            “CAMERA - GUIDED INTERPRETATION OF ( 56 ) NEUROMUSCULAR SIGNALS” from Facebook \\
+            https://www.mdpi.com/2079-9292/9/12/2143/pdf \\
+            https://www.mdpi.com/1424-8220/19/14/3170/pdf-vor
+        \end{itemize}
+        \item Gesture performed
+        \begin{itemize}
+            \item Single finger motions \\
+            https://www.researchgate.net/publication/341629918\_Simultaneous\_Hand\_Gesture\_Classification\_and\_Finger\_Angle\_Estimation\_via\_a\_Novel\_Dual-Output\_Deep\_Learning\_Model
+            
+            \item Activities of daily living (ADL) \\
+            https://www.tandfonline.com/doi/abs/10.3109/02844319509034334
+            
+            \item Sign language \\
+            https://www.mdpi.com/1424-8220/19/14/3170/pdf-vor \\
+            https://www.mdpi.com/1424-8220/20/10/2972 \\
+            https://www.researchgate.net/publication/243769865\_A\_Sign\_Language\_Recognition\_System\_Using\_Hidden\_Markov\_Model\_and\_Context\_Sensitive\_Search
+            \item Irregular moves
+            \item Maximum voluntary contraction (MVC) \\
+            https://pubmed.ncbi.nlm.nih.gov/29355119/ 
+        \end{itemize}
+    \end{itemize}
+    \item Hand position data representation \\
+    https://www.sciencedirect.com/science/article/abs/pii/S002192900400301X?via\%3Dihub
+    \item Synchronization \\
+    https://www.researchgate.net/post/How\_can\_I\_synchronize\_EMG\_and\_acceleration\_data 
+\end{itemize}
+
+\subsection{Hand tracking using Oculus Quest}
+
+\subsubsection{Motion tracking systems}
+
+
+
+\begin{itemize}
+    \item CyberGlove
+    \item 3D motion tracking cameras
+    \item Oculus Quest: Unity and The OVR library \\
+    How Oculus uses AI for hand tracking : https://augmentedstartups.medium.com/how-oculus-uses-ai-for-hand-tracking-8d9eb8046029 \\
+    Using deep neural networks for accurate hand-tracking on Oculus Quest : https://ai.facebook.com/blog/hand-tracking-deep-neural-networks \\
+    DeepHandsVR: Hand Interface Using Deep Learning in Immersive Virtual Reality: https://www.mdpi.com/2079-9292/9/11/1863 \\
+    Handcrated and Deep Trackers: Recent Visual Object Tracking Approaches and Trends: https://arxiv.org/pdf/1812.07368.pdf \\
+    Hand pose estimation : https://www.tensorflow.org/lite/models/pose\_estimation/overview
+    How Accurate is Oculus Quest 2 Hand-tracking Feature?: https://www.youtube.com/watch?v=g8fGShHy3MA&ab\_channel=SpookyFairy  \\
+    Hand Physics Lab: Hand Tracking Demos in Oculus Quest!: https://www.youtube.com/watch?v=J0KhC1GpLSQ&ab\_channel=AdamSavage\%E2\%80\%99sTested 
+    Hand physic lab: https://sidequestvr.com/app/750/hand-physics-lab \\
+    https://developer.oculus.com/documentation/unity/unity-utilities-overview/
+\end{itemize}
+
+
+\section{Realisation: Creation of a data set}
+
+\subsection{Experimental setup}
+
+\subsection{Hand tracking collection}
+
+\begin{itemize}
+    \item Data collection
+    \item Interface
+\end{itemize}
+
+
+\subsection{Synchronization of EMG signals}
+
+\begin{itemize}
+    \item remote control
+    \begin{itemize}
+        \item UTC
+        \item Trigger signal
+    \end{itemize}
+\end{itemize}
+
+
+\subsection{Data collection protocol}
+https://github.com/MColot/MA-Thesis-Martin-Colot---Machine-learning-for-EMG-data/blob/master/notes/dataAcquisitionProtocol.pdf
+
+\begin{itemize}
+    \item Chosen electrodes locations
+    \item Chosen Gestures
+\end{itemize}
+
+\section{Conclusion and future work}
+
+
+
+\end{document}

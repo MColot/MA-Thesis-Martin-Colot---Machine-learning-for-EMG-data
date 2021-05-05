@@ -1,0 +1,39 @@
+\documentclass{article}
+
+\begin{document}
+
+
+Most of the current work concerning hand gesture prediction from sEMG signal is concentrated on gesutre classification. That is why data sets containing simultaneously sEMG signals and fingers kinematics, in the aim of doing gesture regression, are not so numerous. Moreover, there exist no state of the art benchmark for the data collection protocol which could enable to easily create such data sets.
+	
+	%[TODO] show data sets made for gesture classification here
+	
+	We present, in this section, two data sets containing synchronized sEMG signals and hand kinematics \cite{ref:ninapro, ref:KinMusUji} as well as some studies presenting their protocol for such data collection (without providing their data set) \cite{ref:Ngeo2014, ref:Hioki2012}.
+	
+	
+	\paragraph{Estimation of Finger Joint Angles from sEMG Using a Neural Network Including Time Delay Factor and Recurrent Structure \cite{ref:Hioki2012}}
+	
+	This study was published in 2012 in the ISRN Rehabilitation journal. It uses 4 sEMG electrodes on the flexion side of the forearm with location determined by palpation. The finger joint angles were estimated using a CyberGlove. The gestures performed are based only on single finger flexion and extension and whole hand flexion and extension.
+	
+	\paragraph{The NinaPro data set \cite{ref:ninapro}}
+	
+	Published in 2014 in \textit{Nature Scientific Data}, this data set is composed of data acquired from 67 intact subjects and 11 who had 1 missing arm (in the aim of using the data set for hand prosthesis control). These subjects were asked to perform 4 kinds of exercises for a total of 61 different gestures (plus the resting gesture). The researchers used 12 sEMG electrodes and a CyberGlove II to estimate the hand kinematics.
+	
+	This data set has been cited in multiple similar works \cite{ref:KinMusUji, ref:comp6EMGsetup}. It is however not perfect. The KIN-MUS UJI data set (presented below) shows three weaknesses that need to be corrected in order to create a reliable and reproducible benchmark.
+	\begin{enumerate}
+		\item The performed gestures do not correspond to real life movements (ADL)
+		\item The representation of the hand kinematics data is not representing anatomical angles
+		\item No indication on the exact sEMG location
+	\end{enumerate}
+	
+	
+	
+	\paragraph{Continuous and simultaneous estimation of finger kinematics using inputs from an EMG-to-muscle activation model \cite{ref:Ngeo2014}}
+	
+	This study presents a data collection protocol together with a comparison of different prediction algorithm that make regression of the finger kinematics. The data is composed of 8 sEMG channel (each targeting a different muscle of the forearm) and finger kinematics based on a 3D motion camera system that tracks the positions of multiple markers. This technique of motion tracking is criticized by the researchers doing the KIN-MUS UJI data set for being sometimes not enough precise. 
+	
+	\paragraph{The KIN-MUS UJI data set \cite{ref:KinMusUji}}
+	
+	Also published in \textit{Nature Scientific Data} but in 2019, this data set aims at correcting weaknesses of the \textit{NinaPro} data set and other previews data collection protocols. In particular, it gives more precise informations on the sEMG sensor locations, its gestures are based on ALD and the hand kinematics are represented using a standardisation of the anatomical angles of the hand given by the International Society of Biomechanics (ISB) \cite{ref:handAnatomicalAngles}. The motion tracking technology used is also a CyberGlove II.
+	
+	
+\end{document}

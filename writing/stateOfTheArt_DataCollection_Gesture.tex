@@ -1,3 +1,7 @@
+\documentclass{article}
+
+\begin{document}
+
 To create a data set that enables regression models of the finger kinematics, we need a set of gestures that is as big as possible and allows to distinguish the muscular activity linked to each finger independently even if they do not reflect real life movements. This task is difficult as each gesture involves similar sets of muscles.
 The needed gestures are also different than for classification model where the set of gestures only need to be as small as possible and to only contain real life movements.
 
@@ -37,15 +41,11 @@ A study \cite{ref:Ngeo2014} has used 3 kinds of exercises. The last one was to a
 
 
 \subsubsection{Maximum voluntary contraction (MVC)}
-https://jneuroengrehab.biomedcentral.com/articles/10.1186/1743-0003-11-122
 
-https://pubmed.ncbi.nlm.nih.gov/29355119/
-
-
-The recording of maximum voluntary contractions allow to find the maximum amplitude of the EMG signals which can be later used to normalize the signals.
+The recording of maximum voluntary contractions allow to find the maximum amplitude of the EMG signals which can be later used to normalize the signals. Normalization of the EMG signal is important because this signal is user dependant. This kind of processing allows to mix results obtained on different subjects in a same data set.
 There are height different postures of the hand for which a MVC can be recorded (see figure \ref{fig:mvc}).
 
-\begin{figure}
+\begin{figure}[H]
     \centering
     \includegraphics[width=10cm]{images/mvc.png}
     \caption{Representations of the 8 postures of the hand for which a MVC can be recorded}
@@ -53,3 +53,7 @@ There are height different postures of the hand for which a MVC can be recorded 
 \end{figure}
 
 Studies creating synchronized hand kinematics and sEMG data sets have included this kind of recording in their data \cite{ref:Ngeo2014, ref:KinMusUji} but they do not include the 8 possible postures. Their protocol of data collection for MVC was composed of a few records (i.e. 3 records of each MVC) with 3 minutes of resting between each repetition of the set of postures due to the muscle fatigue that it causes, which can lead to less accurate data.
+
+Even if this method of calculating the maximal muscular activity of the forearm is the most widely used in the literature, it does not always give the best results. A study which compared maximum wrist extension with resisted wrist extension \cite{ref:mvc} has shown that using resisting device gives a more accurate measurement of maximal effort.
+
+\end{document}
